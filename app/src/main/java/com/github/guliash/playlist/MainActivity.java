@@ -1,9 +1,21 @@
 package com.github.guliash.playlist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.github.guliash.playlist.api.PlaylistApi;
+import com.github.guliash.playlist.structures.Singer;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +23,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(PlaylistApi.YANDEX_API).
+                addConverterFactory(GsonConverterFactory.create()).build();
+        PlaylistApi yandexApi = retrofit.create(PlaylistApi.class);
+        yandexApi.getSingers().enqueue(new Callback<List<Singer>>() {
+            @Override
+            public void onResponse(Call<List<Singer>> call, Response<List<Singer>> response) {
+                Log.e(null, response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Singer>> call, Throwable t) {
+            }
+        });
     }
 
     @Override
