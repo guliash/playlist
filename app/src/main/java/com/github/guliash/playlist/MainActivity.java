@@ -6,37 +6,41 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.github.guliash.playlist.api.PlaylistApi;
+import com.github.guliash.playlist.presenters.MainPresenter;
+import com.github.guliash.playlist.presenters.MainPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
+import com.github.guliash.playlist.views.MainView;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class MainActivity extends AppCompatActivity implements MainView {
 
-public class MainActivity extends AppCompatActivity {
+    private MainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPresenter = new MainPresenterImpl();
+        mPresenter.onCreate(this, savedInstanceState);
+    }
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(PlaylistApi.YANDEX_API).
-                addConverterFactory(GsonConverterFactory.create()).build();
-        PlaylistApi yandexApi = retrofit.create(PlaylistApi.class);
-        yandexApi.getSingers().enqueue(new Callback<List<Singer>>() {
-            @Override
-            public void onResponse(Call<List<Singer>> call, Response<List<Singer>> response) {
-                Log.e(null, response.body().toString());
-            }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
 
-            @Override
-            public void onFailure(Call<List<Singer>> call, Throwable t) {
-            }
-        });
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mPresenter.saveState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 
     @Override
@@ -59,5 +63,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void setSingers(List<Singer> singers) {
+        Log.e(null, "SET SINGERS " + singers);
+    }
+
+    @Override
+    public void navigateToDescription(Singer singer) {
+
     }
 }

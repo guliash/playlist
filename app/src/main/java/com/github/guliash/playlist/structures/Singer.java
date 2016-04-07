@@ -2,31 +2,34 @@ package com.github.guliash.playlist.structures;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Singer {
 
     @SerializedName("id")
-    private Integer mId;
+    public Integer mId;
 
     @SerializedName("name")
-    private String mName;
+    public String mName;
 
     @SerializedName("genres")
-    private String[] mGenres;
+    public String[] mGenres;
 
     @SerializedName("tracks")
-    private Integer mTracks;
+    public Integer mTracks;
 
     @SerializedName("albums")
-    private Integer mAlbums;
+    public Integer mAlbums;
 
     @SerializedName("link")
-    private String mLink;
+    public String mLink;
 
     @SerializedName("description")
-    private String mDescription;
+    public String mDescription;
 
     @SerializedName("cover")
-    private Cover mCover;
+    public Cover mCover;
 
     @Override
     public String toString() {
@@ -36,69 +39,5 @@ public class Singer {
     @Override
     public int hashCode() {
         return mName.hashCode();
-    }
-
-    public Integer getId() {
-        return mId;
-    }
-
-    public void setId(Integer id) {
-        mId = id;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public String[] getGenres() {
-        return mGenres;
-    }
-
-    public void setGenres(String[] genres) {
-        mGenres = genres;
-    }
-
-    public Integer getTracks() {
-        return mTracks;
-    }
-
-    public void setTracks(Integer tracks) {
-        mTracks = tracks;
-    }
-
-    public Integer getAlbums() {
-        return mAlbums;
-    }
-
-    public void setAlbums(Integer albums) {
-        mAlbums = albums;
-    }
-
-    public String getLink() {
-        return mLink;
-    }
-
-    public void setLink(String link) {
-        mLink = link;
-    }
-
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
-    public Cover getCover() {
-        return mCover;
-    }
-
-    public void setCover(Cover cover) {
-        mCover = cover;
     }
 }
