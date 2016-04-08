@@ -7,9 +7,9 @@ import org.parceler.Parcel;
 @Parcel
 public class Cover {
     @SerializedName("small")
-    public String mSmall;
+    public String small;
 
     @SerializedName("big")
-    public String mBig;
+    public String big;
     
 }

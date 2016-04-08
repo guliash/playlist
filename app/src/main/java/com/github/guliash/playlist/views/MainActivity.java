@@ -3,11 +3,13 @@ package com.github.guliash.playlist.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.adapters.SingersAdapter;
 import com.github.guliash.playlist.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.presenters.MainPresenter;
 import com.github.guliash.playlist.presenters.MainPresenterImpl;
@@ -15,16 +17,25 @@ import com.github.guliash.playlist.structures.Singer;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private MainPresenter mPresenter;
+    private RecyclerView mSingersList;
+    private SingersAdapter mSingersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSingersList = (RecyclerView)findViewById(R.id.singers);
+        mSingersList.setLayoutManager(new LinearLayoutManager(this));
+        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0));
+        mSingersList.setAdapter(mSingersAdapter);
+
         mPresenter = new MainPresenterImpl();
         mPresenter.onCreate(this, savedInstanceState);
     }
@@ -81,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setSingers(List<Singer> singers) {
-        Log.e(null, "SET SINGERS " + singers);
+        mSingersAdapter.setSingers(singers);
     }
 
     @Override

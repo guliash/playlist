@@ -8,36 +8,36 @@ import org.parceler.Parcel;
 public class Singer {
 
     @SerializedName("id")
-    public Integer mId;
+    public Integer id;
 
     @SerializedName("name")
-    public String mName;
+    public String name;
 
     @SerializedName("genres")
-    public String[] mGenres;
+    public String[] genres;
 
     @SerializedName("tracks")
-    public Integer mTracks;
+    public Integer tracks;
 
     @SerializedName("albums")
-    public Integer mAlbums;
+    public Integer albums;
 
     @SerializedName("link")
-    public String mLink;
+    public String link;
 
     @SerializedName("description")
-    public String mDescription;
+    public String description;
 
     @SerializedName("cover")
-    public Cover mCover;
+    public Cover cover;
 
     @Override
     public String toString() {
-        return mName;
+        return name;
     }
 
     @Override
     public int hashCode() {
-        return mName.hashCode();
+        return name.hashCode();
     }
 }
