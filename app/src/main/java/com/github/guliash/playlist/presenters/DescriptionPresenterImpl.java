@@ -17,8 +17,14 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
     private static final String SINGER_EXTRA = "singer";
 
     @Override
-    public void onStart() {
+    public void onCreate(DescriptionView view, Bundle bundle) {
+        mView = view;
+        mSinger = Parcels.unwrap(bundle.getParcelable(SINGER_EXTRA));
+    }
 
+    @Override
+    public void onStart() {
+        
     }
 
     @Override
@@ -29,11 +35,5 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
     @Override
     public void onDestroy() {
         mView = null;
-    }
-
-    @Override
-    public void onCreate(DescriptionView view, Bundle bundle) {
-        mView = view;
-        mSinger = Parcels.unwrap(bundle.getParcelable(SINGER_EXTRA));
     }
 }
