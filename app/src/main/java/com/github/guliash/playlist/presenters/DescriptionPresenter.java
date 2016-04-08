@@ -9,4 +9,5 @@ import com.github.guliash.playlist.views.DescriptionView;
  */
 public interface DescriptionPresenter extends BasePresenter {
     void onCreate(DescriptionView view, Bundle bundle);
+    String SINGER_EXTRA = "singer";
 }

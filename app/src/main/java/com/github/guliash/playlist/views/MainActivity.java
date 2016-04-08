@@ -1,5 +1,6 @@
 package com.github.guliash.playlist.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,9 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.presenters.MainPresenter;
 import com.github.guliash.playlist.presenters.MainPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -82,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void navigateToDescription(Singer singer) {
-
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        intent.putExtra(DescriptionPresenter.SINGER_EXTRA, Parcels.wrap(singer));
+        startActivity(intent);
     }
 }

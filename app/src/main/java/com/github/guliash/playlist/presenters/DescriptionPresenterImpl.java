@@ -14,7 +14,6 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;
     private Singer mSinger;
-    private static final String SINGER_EXTRA = "singer";
 
     @Override
     public void onCreate(DescriptionView view, Bundle bundle) {
@@ -24,7 +23,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     @Override
     public void onStart() {
-        
+
     }
 
     @Override
