@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         mSingersList = (RecyclerView)findViewById(R.id.singers);
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
-        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0));
+        mSingersList.setHasFixedSize(true);
+        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this);
         mSingersList.setAdapter(mSingersAdapter);
 
         mPresenter = new MainPresenterImpl();

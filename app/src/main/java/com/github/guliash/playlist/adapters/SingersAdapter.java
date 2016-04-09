@@ -1,14 +1,17 @@
 package com.github.guliash.playlist.adapters;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.structures.Singer;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,11 +24,14 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
 
         private TextView mName;
         private TextView mDesc;
+        private ImageView mCover;
+
 
         public SingerViewHolder(View itemView) {
             super(itemView);
             mName = (TextView)itemView.findViewById(R.id.name);
             mDesc = (TextView)itemView.findViewById(R.id.desc);
+            mCover = (ImageView)itemView.findViewById(R.id.cover);
         }
     }
 
@@ -45,10 +51,12 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         }
     }
 
+    private Context mContext;
     private List<Singer> mSingers;
 
-    public SingersAdapter(List<Singer> singerList) {
-        this.mSingers = singerList;
+    public SingersAdapter(List<Singer> singerList, Context context) {
+        mSingers = singerList;
+        mContext = context;
     }
 
     @Override
@@ -63,6 +71,7 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         Singer singer = mSingers.get(position);
         singerViewHolder.mName.setText(singer.name);
         singerViewHolder.mDesc.setText(singer.description);
+        Picasso.with(mContext).load(singer.cover.small).fit().into(singerViewHolder.mCover);
     }
 
     @Override
