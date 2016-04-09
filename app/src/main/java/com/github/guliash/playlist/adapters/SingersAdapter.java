@@ -1,5 +1,6 @@
 package com.github.guliash.playlist.adapters;
 
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,22 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
             super(itemView);
             mName = (TextView)itemView.findViewById(R.id.name);
             mDesc = (TextView)itemView.findViewById(R.id.desc);
+        }
+    }
+
+    public static class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int mVerticalSpace;
+
+        public VerticalSpaceItemDecoration(int verticalSpace) {
+            mVerticalSpace = verticalSpace;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            if(parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                outRect.bottom = mVerticalSpace;
+            }
         }
     }
 
