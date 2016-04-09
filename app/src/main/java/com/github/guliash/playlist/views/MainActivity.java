@@ -20,7 +20,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView, SingersAdapter.Callbacks {
 
     private MainPresenter mPresenter;
     private RecyclerView mSingersList;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mSingersList = (RecyclerView)findViewById(R.id.singers);
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
         mSingersList.setHasFixedSize(true);
-        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this);
+        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
 
         mPresenter = new MainPresenterImpl();
@@ -101,5 +101,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Intent intent = new Intent(this, DescriptionActivity.class);
         intent.putExtra(DescriptionPresenter.SINGER_EXTRA, Parcels.wrap(singer));
         startActivity(intent);
+    }
+
+    @Override
+    public void onSingerClicked(Singer singer) {
+        mPresenter.onSingerClicked(singer);
     }
 }

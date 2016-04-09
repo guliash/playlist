@@ -2,6 +2,7 @@ package com.github.guliash.playlist.adapters;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +26,11 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         private TextView mName;
         private TextView mDesc;
         private ImageView mCover;
-
+        private CardView mCardView;
 
         public SingerViewHolder(View itemView) {
             super(itemView);
+            mCardView = (CardView)itemView.findViewById(R.id.card);
             mName = (TextView)itemView.findViewById(R.id.name);
             mDesc = (TextView)itemView.findViewById(R.id.desc);
             mCover = (ImageView)itemView.findViewById(R.id.cover);
@@ -51,23 +53,40 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         }
     }
 
+    public interface Callbacks {
+        void onSingerClicked(Singer singer);
+    }
+
     private Context mContext;
     private List<Singer> mSingers;
+    private Callbacks mListener;
 
-    public SingersAdapter(List<Singer> singerList, Context context) {
+    public SingersAdapter(List<Singer> singerList, Context context, Callbacks listener) {
         mSingers = singerList;
         mContext = context;
+        mListener = listener;
     }
 
     @Override
     public SingerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        SingerViewHolder holder = new SingerViewHolder(LayoutInflater.from(viewGroup.getContext())
+        final SingerViewHolder holder = new SingerViewHolder(LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.singer_card, viewGroup, false));
+
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION) {
+                    mListener.onSingerClicked(mSingers.get(position));
+                }
+            }
+        });
+
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(SingerViewHolder singerViewHolder, int position) {
+    public void onBindViewHolder(final SingerViewHolder singerViewHolder, int position) {
         Singer singer = mSingers.get(position);
         singerViewHolder.mName.setText(singer.name);
         singerViewHolder.mDesc.setText(singer.description);

@@ -18,7 +18,8 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new DescriptionPresenterImpl();
-        mPresenter.onCreate(this, savedInstanceState);
+        mPresenter.onCreate(this, (savedInstanceState != null ? savedInstanceState
+                : getIntent().getExtras()));
     }
 
     @Override
