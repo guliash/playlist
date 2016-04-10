@@ -3,6 +3,8 @@ package com.github.guliash.playlist;
 import android.app.Application;
 
 import com.github.guliash.playlist.api.PlaylistApi;
+import com.github.guliash.playlist.api.Storage;
+import com.github.guliash.playlist.api.StorageImpl;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -14,7 +16,7 @@ import rx.schedulers.Schedulers;
  */
 public class PlaylistApplication extends Application {
 
-    private static PlaylistApi api;
+    private static Storage storage;
 
     @Override
     public void onCreate() {
@@ -25,10 +27,10 @@ public class PlaylistApplication extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(rxAdapter)
                 .build();
-        api = retrofit.create(PlaylistApi.class);
+        storage = new StorageImpl(retrofit.create(PlaylistApi.class));
     }
 
-    public static PlaylistApi getPlaylistApi() {
-        return api;
+    public static Storage getStorage() {
+        return storage;
     }
 }

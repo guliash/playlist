@@ -13,4 +13,6 @@ public interface MainPresenter extends BasePresenter {
     void onCreate(MainView view, Bundle bundle);
 
     void onSingerClicked(Singer singer);
+
+    void onSingersSearch(String query);
 }
