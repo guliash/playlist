@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
     public static class SingerViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mName;
+        private TextView mGenres;
         private TextView mDesc;
         private ImageView mCover;
         private CardView mCardView;
@@ -32,6 +34,7 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
             super(itemView);
             mCardView = (CardView)itemView.findViewById(R.id.card);
             mName = (TextView)itemView.findViewById(R.id.name);
+            mGenres = (TextView)itemView.findViewById(R.id.genres);
             mDesc = (TextView)itemView.findViewById(R.id.desc);
             mCover = (ImageView)itemView.findViewById(R.id.cover);
         }
@@ -89,6 +92,7 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
     public void onBindViewHolder(final SingerViewHolder singerViewHolder, int position) {
         Singer singer = mSingers.get(position);
         singerViewHolder.mName.setText(singer.name);
+        singerViewHolder.mGenres.setText(TextUtils.join(", ", singer.genres));
         singerViewHolder.mDesc.setText(singer.description);
         Picasso.with(mContext).load(singer.cover.small).fit().into(singerViewHolder.mCover);
     }
