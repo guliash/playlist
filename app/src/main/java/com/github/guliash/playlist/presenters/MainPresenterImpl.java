@@ -1,19 +1,17 @@
 package com.github.guliash.playlist.presenters;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 
 import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.views.MainView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by gulash on 07.04.16.
@@ -21,7 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 public class MainPresenterImpl implements MainPresenter {
 
     private MainView mView;
-    private CompositeSubscription mSubscription = new CompositeSubscription();
+    private String mFilter;
 
     @Override
     public void onCreate(MainView view, Bundle bundle) {
@@ -30,28 +28,9 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onStart() {
+        EventBus.getDefault().register(this);
         mView.showProgress();
-        mSubscription.add(PlaylistApplication.getStorage()
-                .getSingers()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Singer>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(null, "ERROR");
-                    }
-
-                    @Override
-                    public void onNext(List<Singer> singers) {
-                        mView.hideProgress();
-                        mView.setSingers(singers);
-                    }
-                }));
-
+        PlaylistApplication.getStorage().getSingers();
     }
 
     @Override
@@ -62,7 +41,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onDestroy() {
-        mSubscription.unsubscribe();
+        EventBus.getDefault().unregister(this);
         mView = null;
     }
 
@@ -73,35 +52,27 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onSingersSearch(final String query) {
+        mFilter = query;
         mView.showProgress();
-        mSubscription.add(PlaylistApplication.getStorage().getSingers()
-                .map(new Func1<List<Singer>, List<Singer>>() {
-                    @Override
-                    public List<Singer> call(List<Singer> singers) {
-                        List<Singer> list = new ArrayList<>();
-                        for (Singer singer : singers) {
-                            if (singer.name.toLowerCase().startsWith(query.toLowerCase())) {
-                                list.add(singer);
-                            }
-                        }
-                        return list;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Singer>>() {
-                    @Override
-                    public void onCompleted() {
-                    }
+        PlaylistApplication.getStorage().getSingers();
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                    }
+    @Override
+    @Subscribe
+    public void onSingers(List<Singer> singers) {
+        mView.setSingers(applyFilter(singers));
+    }
 
-                    @Override
-                    public void onNext(List<Singer> singers) {
-                        mView.hideProgress();
-                        mView.setSingers(singers);
-                    }
-                }));
+    private List<Singer> applyFilter(List<Singer> singers) {
+        if (TextUtils.isEmpty(mFilter)) {
+            return singers;
+        }
+        List<Singer> result = new ArrayList<>();
+        for(Singer singer : singers) {
+            if(singer.name.toLowerCase().startsWith(mFilter)) {
+                result.add(singer);
+            }
+        }
+        return result;
     }
 }
