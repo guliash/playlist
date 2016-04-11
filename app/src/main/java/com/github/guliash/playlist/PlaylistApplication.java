@@ -5,6 +5,9 @@ import android.app.Application;
 import com.github.guliash.playlist.api.PlaylistApi;
 import com.github.guliash.playlist.api.Storage;
 import com.github.guliash.playlist.api.StorageImpl;
+import com.github.guliash.playlist.cache.FileCache;
+import com.github.guliash.playlist.cache.JsonDeserializer;
+import com.github.guliash.playlist.cache.JsonSerializer;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,7 +25,8 @@ public class PlaylistApplication extends Application {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(PlaylistApi.YANDEX_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        storage = new StorageImpl(retrofit.create(PlaylistApi.class));
+        storage = new StorageImpl(retrofit.create(PlaylistApi.class), new FileCache(this),
+                new JsonSerializer(), new JsonDeserializer());
     }
 
     public static Storage getStorage() {
