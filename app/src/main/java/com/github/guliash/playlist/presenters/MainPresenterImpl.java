@@ -9,6 +9,7 @@ import com.github.guliash.playlist.views.MainView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSingers(List<Singer> singers) {
         mView.setSingers(applyFilter(singers));
     }
