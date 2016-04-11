@@ -34,6 +34,7 @@ public class StorageImpl implements Storage {
     }
 
     public void getSingers() {
+        //TODO currently it runs on the main thread. FIX IT!!!
         if(mCache.isCached() && !mCache.isExpired()) {
             Log.e(null, "FROM CACHE");
             EventBus.getDefault().post(mCache.get(mDeserializer));

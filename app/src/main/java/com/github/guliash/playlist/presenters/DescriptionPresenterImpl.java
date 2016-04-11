@@ -19,6 +19,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
     public void onCreate(DescriptionView view, Bundle bundle) {
         mView = view;
         mSinger = Parcels.unwrap(bundle.getParcelable(SINGER_EXTRA));
+        mView.setSinger(mSinger);
     }
 
     @Override
