@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.onStop();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mPresenter.saveState(outState);

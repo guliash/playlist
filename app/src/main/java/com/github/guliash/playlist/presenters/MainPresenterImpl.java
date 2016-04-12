@@ -35,6 +35,11 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void saveState(Bundle bundle) {
 
     }
@@ -42,7 +47,6 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onDestroy() {
-        EventBus.getDefault().unregister(this);
         mView = null;
     }
 

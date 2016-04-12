@@ -9,6 +9,8 @@ public interface BasePresenter {
 
     void onStart();
 
+    void onStop();
+
     void saveState(Bundle bundle);
 
     void onDestroy();
