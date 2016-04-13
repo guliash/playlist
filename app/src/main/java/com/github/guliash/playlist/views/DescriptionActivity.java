@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.github.guliash.playlist.R;
@@ -58,6 +59,22 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     @Override

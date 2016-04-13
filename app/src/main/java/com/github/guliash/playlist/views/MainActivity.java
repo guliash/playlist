@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
         Intent intent = new Intent(this, DescriptionActivity.class);
         intent.putExtra(DescriptionPresenter.SINGER_EXTRA, Parcels.wrap(singer));
         startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     @Override
