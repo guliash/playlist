@@ -42,42 +42,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
-                android:text="@string/lorem_ipsum"/>
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp">
+            <include layout="@layout/singer_info_card" />
+            <include layout="@layout/singer_desc_card" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
