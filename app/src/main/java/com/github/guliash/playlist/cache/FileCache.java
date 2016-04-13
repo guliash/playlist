@@ -1,6 +1,8 @@
 package com.github.guliash.playlist.cache;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.github.guliash.playlist.structures.Singer;
 
@@ -22,6 +24,8 @@ import java.util.List;
 public class FileCache implements Cache {
 
     private static final String FILENAME = "singers";
+    private static final String UPDATE_EXTRA = "update";
+    private static final int EXPIRED_INTERVAL = 1 * 60 * 1000;
 
     private Context mContext;
 
@@ -38,6 +42,7 @@ public class FileCache implements Cache {
     @Override
     public void cache(List<Singer> singers, Serializer serializer) {
         write(serializer.serializeSingers(singers));
+        putTimeToPrefs();
     }
 
     @Override
@@ -48,7 +53,20 @@ public class FileCache implements Cache {
 
     @Override
     public boolean isExpired() {
-        return false;
+        SharedPreferences pref = mContext.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
+        long prev = pref.getLong(UPDATE_EXTRA, -1);
+        if(prev == -1) {
+            return false;
+        }
+        Log.e("TAG", (System.currentTimeMillis() - prev) + "");
+        return System.currentTimeMillis() - prev > EXPIRED_INTERVAL;
+    }
+
+    private void putTimeToPrefs() {
+        SharedPreferences.Editor editor = mContext.
+                getSharedPreferences(FILENAME, Context.MODE_PRIVATE).edit();
+        editor.putLong(UPDATE_EXTRA, System.currentTimeMillis());
+        editor.commit();
     }
 
     private void write(String text) {
