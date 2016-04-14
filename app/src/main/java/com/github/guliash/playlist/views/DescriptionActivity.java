@@ -3,9 +3,11 @@ package com.github.guliash.playlist.views;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.presenters.DescriptionPresenter;
@@ -20,6 +22,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
 
     private DescriptionPresenter mPresenter;
     private ImageView mImage;
+    private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +30,16 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         setContentView(R.layout.activity_desc);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.e("TAG", "ON CREATE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mImage = (ImageView)findViewById(R.id.image);
+        mName = (TextView)findViewById(R.id.name);
+        mGenres = (TextView)findViewById(R.id.genres);
+        mTracks = (TextView)findViewById(R.id.tracks);
+        mAlbums = (TextView)findViewById(R.id.albums);
+        mLink = (TextView)findViewById(R.id.link);
+        mDesc = (TextView)findViewById(R.id.desc);
+
         mPresenter = new DescriptionPresenterImpl();
         mPresenter.onCreate(this, (savedInstanceState != null ? savedInstanceState
                 : getIntent().getExtras()));
@@ -65,22 +75,27 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
             finish();
-            overridePendingTransition(R.anim.left_in, R.anim.right_out);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     @Override
     public void setSinger(Singer singer) {
-
         Log.e("TAG", "SET SINGER");
+        mName.setText(singer.name);
+        mGenres.setText(TextUtils.join(", ", singer.genres));
+        mTracks.setText(String.valueOf(singer.tracks));
+        mAlbums.setText(String.valueOf(singer.albums));
+        mLink.setText(singer.link);
+        mDesc.setText(singer.description);
+
         Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(mImage);
     }
 
