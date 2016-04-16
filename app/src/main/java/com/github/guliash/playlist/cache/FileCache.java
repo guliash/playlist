@@ -25,12 +25,16 @@ public class FileCache implements Cache {
 
     private static final String FILENAME = "singers";
     private static final String UPDATE_EXTRA = "update";
-    private static final int EXPIRED_INTERVAL = 1 * 60 * 1000;
+    private static final int EXPIRATION_INTERVAL = 1 * 60 * 1000;
 
     private Context mContext;
+    private Serializer mSerializer;
+    private Deserializer mDeserializer;
 
-    public FileCache(Context context) {
+    public FileCache(Context context, Serializer serializer, Deserializer deserializer) {
         mContext = context;
+        mSerializer = serializer;
+        mDeserializer = deserializer;
     }
 
     @Override
@@ -40,15 +44,15 @@ public class FileCache implements Cache {
     }
 
     @Override
-    public void cache(List<Singer> singers, Serializer serializer) {
-        write(serializer.serializeSingers(singers));
+    public void cache(List<Singer> singers) {
+        write(mSerializer.serializeSingers(singers));
         putTimeToPrefs();
     }
 
     @Override
-    public List<Singer> get(Deserializer deserializer) {
+    public List<Singer> get() {
         String json = read();
-        return deserializer.deserializeSingers(json);
+        return mDeserializer.deserializeSingers(json);
     }
 
     @Override
@@ -59,7 +63,7 @@ public class FileCache implements Cache {
             return false;
         }
         Log.e("TAG", (System.currentTimeMillis() - prev) + "");
-        return System.currentTimeMillis() - prev > EXPIRED_INTERVAL;
+        return System.currentTimeMillis() - prev > EXPIRATION_INTERVAL;
     }
 
     private void putTimeToPrefs() {

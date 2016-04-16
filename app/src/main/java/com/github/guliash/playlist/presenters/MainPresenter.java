@@ -18,5 +18,7 @@ public interface MainPresenter extends BasePresenter {
 
     void onSingersSearch(String query);
 
+    void onSingersRefresh();
+
     void onSingers(List<Singer> singers);
 }

@@ -11,9 +11,9 @@ public interface Cache {
 
     boolean isCached();
 
-    void cache(List<Singer> singers, Serializer serializer);
+    void cache(List<Singer> singers);
 
-    List<Singer> get(Deserializer deserializer);
+    List<Singer> get();
 
     boolean isExpired();
 

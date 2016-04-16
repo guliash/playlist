@@ -63,9 +63,16 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void onSingersRefresh() {
+        PlaylistApplication.getStorage().getSingers();
+    }
+
+    @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSingers(List<Singer> singers) {
-        mView.setSingers(applyFilter(singers));
+        if(mView != null) {
+            mView.setSingers(applyFilter(singers));
+        }
     }
 
     private List<Singer> applyFilter(List<Singer> singers) {

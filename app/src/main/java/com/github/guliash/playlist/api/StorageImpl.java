@@ -3,8 +3,6 @@ package com.github.guliash.playlist.api;
 import android.util.Log;
 
 import com.github.guliash.playlist.cache.Cache;
-import com.github.guliash.playlist.cache.Deserializer;
-import com.github.guliash.playlist.cache.Serializer;
 import com.github.guliash.playlist.structures.Singer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,15 +19,11 @@ public class StorageImpl implements Storage {
 
     private PlaylistApi mApi;
     private Cache mCache;
-    private Serializer mSerializer;
-    private Deserializer mDeserializer;
     private Executor mExecutor;
 
-    public StorageImpl(PlaylistApi api, Cache cache, Serializer serializer, Deserializer deserializer) {
+    public StorageImpl(PlaylistApi api, Cache cache) {
         mApi = api;
         mCache = cache;
-        mSerializer = serializer;
-        mDeserializer = deserializer;
         mExecutor = Executors.newSingleThreadExecutor();
     }
 
@@ -39,12 +33,12 @@ public class StorageImpl implements Storage {
             public void run() {
                 if(mCache.isCached() && !mCache.isExpired()) {
                     Log.e("TAG", "CACHE");
-                    EventBus.getDefault().post(mCache.get(mDeserializer));
+                    EventBus.getDefault().post(mCache.get());
                 } else {
                     try {
                         Log.e("TAG", "CLOUD");
                         List<Singer> singers = mApi.getSingers().execute().body();
-                        mCache.cache(singers, mSerializer);
+                        mCache.cache(singers);
                         EventBus.getDefault().post(singers);
                     } catch(IOException e) {
 

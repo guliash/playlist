@@ -3,6 +3,7 @@ package com.github.guliash.playlist.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
     private MainPresenter mPresenter;
     private RecyclerView mSingersList;
     private SingersAdapter mSingersAdapter;
+    private SwipeRefreshLayout mSwipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
         mSingersList.setHasFixedSize(true);
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
+        mSwipe = (SwipeRefreshLayout)findViewById(R.id.swipe);
+
+        mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.onSingersRefresh();
+            }
+        });
 
         mPresenter = new MainPresenterImpl();
         mPresenter.onCreate(this, savedInstanceState);
@@ -124,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
 
     @Override
     public void setSingers(List<Singer> singers) {
+        mSwipe.setRefreshing(false);
         mSingersAdapter.setSingers(singers);
     }
 
