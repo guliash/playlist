@@ -19,6 +19,7 @@ public class MainPresenterImpl implements MainPresenter {
     private MainView mView;
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
+    private boolean mWaitingSingers;
 
     public MainPresenterImpl() {
         mGetSingersInteractor = new GetSingersInteractorImpl(PlaylistApplication.getStorage(),
@@ -29,7 +30,7 @@ public class MainPresenterImpl implements MainPresenter {
     public void onViewAttach(MainView view) {
         mView = view;
         mView.showProgress();
-        mGetSingersInteractor.execute(mCallbacks);
+        getSingers();
     }
 
     @Override
@@ -41,14 +42,16 @@ public class MainPresenterImpl implements MainPresenter {
         @Override
         public void onSingers(List<Singer> singers) {
             if(mView != null) {
-                mView.hideProgress();
+                mWaitingSingers = false;
                 mView.setSingers(applyFilter(singers));
+                mView.hideProgress();
             }
         }
 
         @Override
         public void onError(Throwable e) {
             if(mView != null) {
+                mWaitingSingers = false;
                 mView.hideProgress();
                 mView.onSingersError(e);
             }
@@ -63,15 +66,20 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onSingersSearch(final String query) {
         mFilter = query;
-        mView.showProgress();
-        mGetSingersInteractor.execute(mCallbacks);
+        getSingers();
     }
 
     @Override
     public void onSingersRefresh() {
-        mGetSingersInteractor.execute(mCallbacks);
+        getSingers();
     }
 
+    private void getSingers() {
+        if(!mWaitingSingers) {
+            mWaitingSingers = true;
+            mGetSingersInteractor.execute(mCallbacks);
+        }
+    }
 
     private List<Singer> applyFilter(List<Singer> singers) {
         if (TextUtils.isEmpty(mFilter)) {

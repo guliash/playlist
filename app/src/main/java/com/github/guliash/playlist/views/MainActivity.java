@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.adapters.SingersAdapter;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
     private RecyclerView mSingersList;
     private SingersAdapter mSingersAdapter;
     private SwipeRefreshLayout mSwipe;
+    private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
         mSwipe = (SwipeRefreshLayout)findViewById(R.id.swipe);
+        mProgress = (ProgressBar)findViewById(R.id.progressBar);
 
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,12 +110,14 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
 
     @Override
     public void showProgress() {
-
+        mSingersList.setVisibility(View.INVISIBLE);
+        mProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mSingersList.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.INVISIBLE);
     }
 
     @Override
