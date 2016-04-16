@@ -2,6 +2,7 @@ package com.github.guliash.playlist.views;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -106,7 +107,8 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
 
     @Override
     public void onError(Throwable e) {
-
+        Snackbar snackbar = Snackbar.make(mCollapsingToolbar, e.getMessage(), Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 

@@ -2,6 +2,7 @@ package com.github.guliash.playlist.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -128,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
 
     @Override
     public void onSingersError(Throwable e) {
-
+        Snackbar snackbar = Snackbar.make(mProgress, e.getMessage(), Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     @Override

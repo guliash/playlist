@@ -31,6 +31,7 @@ public class StorageImpl implements Storage {
             singers = mApi.getSingers().execute().body();
             mCache.cache(singers);
         }
+
         return singers;
     }
 
