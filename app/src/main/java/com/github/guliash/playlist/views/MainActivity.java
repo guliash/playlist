@@ -15,12 +15,9 @@ import android.view.MenuItem;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.adapters.SingersAdapter;
-import com.github.guliash.playlist.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.presenters.MainPresenter;
 import com.github.guliash.playlist.presenters.MainPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
 
         mSingersList = (RecyclerView)findViewById(R.id.singers);
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
-        mSingersList.setHasFixedSize(true);
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
         mSwipe = (SwipeRefreshLayout)findViewById(R.id.swipe);
@@ -53,33 +49,19 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
                 mPresenter.onSingersRefresh();
             }
         });
-
         mPresenter = new MainPresenterImpl();
-        mPresenter.onCreate(this, savedInstanceState);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.onStart();
+        mPresenter.onViewAttach(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mPresenter.onStop();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mPresenter.saveState(outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroy();
+        mPresenter.onViewDetach();
     }
 
     @Override
@@ -139,9 +121,14 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
     }
 
     @Override
+    public void onSingersError(Throwable e) {
+
+    }
+
+    @Override
     public void navigateToDescription(Singer singer) {
         Intent intent = new Intent(this, DescriptionActivity.class);
-        intent.putExtra(DescriptionPresenter.SINGER_EXTRA, Parcels.wrap(singer));
+        intent.putExtra(DescriptionView.SINGER_ID_EXTRA, singer.id);
         startActivity(intent);
     }
 

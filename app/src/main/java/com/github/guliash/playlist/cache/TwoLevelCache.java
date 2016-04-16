@@ -23,6 +23,11 @@ public class TwoLevelCache implements Cache {
     }
 
     @Override
+    public boolean hasActualData() {
+        return mRamCache.hasActualData() || mFileCache.hasActualData();
+    }
+
+    @Override
     public void cache(List<Singer> singers) {
         mRamCache.cache(singers);
         mFileCache.cache(singers);
@@ -30,10 +35,10 @@ public class TwoLevelCache implements Cache {
 
     @Override
     public List<Singer> get() {
-        if(mRamCache.isCached()) {
+        if(mRamCache.hasActualData()) {
             return mRamCache.get();
         }
-        if(mFileCache.isCached()) {
+        if(mFileCache.hasActualData()) {
             return mFileCache.get();
         }
         return null;

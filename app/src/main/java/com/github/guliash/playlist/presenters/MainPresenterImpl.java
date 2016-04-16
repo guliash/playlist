@@ -1,15 +1,12 @@
 package com.github.guliash.playlist.presenters;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.github.guliash.playlist.PlaylistApplication;
+import com.github.guliash.playlist.interactors.GetSingersInteractor;
+import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.views.MainView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,34 +18,42 @@ public class MainPresenterImpl implements MainPresenter {
 
     private MainView mView;
     private String mFilter;
+    private GetSingersInteractor mGetSingersInteractor;
+
+    public MainPresenterImpl() {
+        mGetSingersInteractor = new GetSingersInteractorImpl(PlaylistApplication.getStorage(),
+                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor());
+    }
 
     @Override
-    public void onCreate(MainView view, Bundle bundle) {
+    public void onViewAttach(MainView view) {
         mView = view;
-    }
-
-    @Override
-    public void onStart() {
-        EventBus.getDefault().register(this);
         mView.showProgress();
-        PlaylistApplication.getStorage().getSingers();
+        mGetSingersInteractor.execute(mCallbacks);
     }
 
     @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void saveState(Bundle bundle) {
-
-    }
-
-
-    @Override
-    public void onDestroy() {
+    public void onViewDetach() {
         mView = null;
     }
+
+    GetSingersInteractor.Callbacks mCallbacks = new GetSingersInteractor.Callbacks() {
+        @Override
+        public void onSingers(List<Singer> singers) {
+            if(mView != null) {
+                mView.hideProgress();
+                mView.setSingers(applyFilter(singers));
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            if(mView != null) {
+                mView.hideProgress();
+                mView.onSingersError(e);
+            }
+        }
+    };
 
     @Override
     public void onSingerClicked(Singer singer) {
@@ -59,21 +64,14 @@ public class MainPresenterImpl implements MainPresenter {
     public void onSingersSearch(final String query) {
         mFilter = query;
         mView.showProgress();
-        PlaylistApplication.getStorage().getSingers();
+        mGetSingersInteractor.execute(mCallbacks);
     }
 
     @Override
     public void onSingersRefresh() {
-        PlaylistApplication.getStorage().getSingers();
+        mGetSingersInteractor.execute(mCallbacks);
     }
 
-    @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSingers(List<Singer> singers) {
-        if(mView != null) {
-            mView.setSingers(applyFilter(singers));
-        }
-    }
 
     private List<Singer> applyFilter(List<Singer> singers) {
         if (TextUtils.isEmpty(mFilter)) {
@@ -87,4 +85,5 @@ public class MainPresenterImpl implements MainPresenter {
         }
         return result;
     }
+
 }

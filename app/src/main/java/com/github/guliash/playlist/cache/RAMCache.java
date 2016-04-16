@@ -23,6 +23,11 @@ public class RAMCache implements Cache {
     }
 
     @Override
+    public boolean hasActualData() {
+        return isCached() && !isExpired();
+    }
+
+    @Override
     public void cache(List<Singer> singers) {
         mSingers = singers;
         mLastUpdate = System.currentTimeMillis();
@@ -39,6 +44,7 @@ public class RAMCache implements Cache {
         if(mSingers == null) {
             return false;
         }
+        Log.e("TAG", (System.currentTimeMillis() - mLastUpdate) + "");
         return System.currentTimeMillis() - mLastUpdate >= EXPIRATION_INTERVAL;
     }
 }

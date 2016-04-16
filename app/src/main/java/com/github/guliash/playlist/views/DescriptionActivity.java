@@ -23,6 +23,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     private DescriptionPresenter mPresenter;
     private ImageView mImage;
     private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
+    private int mSingerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,12 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if(savedInstanceState != null) {
+            mSingerId = savedInstanceState.getInt(SINGER_ID_EXTRA);
+        } else {
+            mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
+        }
 
         mImage = (ImageView)findViewById(R.id.image);
         mName = (TextView)findViewById(R.id.name);
@@ -41,34 +48,27 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         mDesc = (TextView)findViewById(R.id.desc);
 
         mPresenter = new DescriptionPresenterImpl();
-        mPresenter.onCreate(this, (savedInstanceState != null ? savedInstanceState
-                : getIntent().getExtras()));
     }
 
     @Override
     protected void onStart() {
         Log.e("TAG", "On START");
         super.onStart();
-        mPresenter.onStart();
+        mPresenter.onViewAttach(this);
+        mPresenter.getSinger(mSingerId);
     }
 
     @Override
     protected void onStop() {
         Log.e("TAG", "On STOP");
         super.onStop();
-        mPresenter.onStop();
+        mPresenter.onViewDetach();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mPresenter.saveState(outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroy();
+        outState.putInt(SINGER_ID_EXTRA, mSingerId);
     }
 
     @Override
@@ -89,6 +89,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     @Override
     public void setSinger(Singer singer) {
         Log.e("TAG", "SET SINGER");
+
         getSupportActionBar().setTitle(singer.name);
         mName.setText(singer.name);
         mGenres.setText(TextUtils.join(", ", singer.genres));
@@ -98,6 +99,11 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         mDesc.setText(singer.description);
 
         Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(mImage);
+    }
+
+    @Override
+    public void onError(Throwable e) {
+
     }
 
 

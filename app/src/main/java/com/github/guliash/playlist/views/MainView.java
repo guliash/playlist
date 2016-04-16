@@ -15,6 +15,8 @@ public interface MainView {
 
     void setSingers(List<Singer> singers);
 
+    void onSingersError(Throwable e);
+
     void navigateToDescription(Singer singer);
 
 }

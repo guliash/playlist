@@ -9,11 +9,13 @@ import java.util.List;
  */
 public interface Cache {
 
-    boolean isCached();
+    boolean hasActualData();
 
     void cache(List<Singer> singers);
 
     List<Singer> get();
+
+    boolean isCached();
 
     boolean isExpired();
 

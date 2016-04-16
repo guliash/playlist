@@ -44,6 +44,11 @@ public class FileCache implements Cache {
     }
 
     @Override
+    public boolean hasActualData() {
+        return isCached() && !isExpired();
+    }
+
+    @Override
     public void cache(List<Singer> singers) {
         write(mSerializer.serializeSingers(singers));
         putTimeToPrefs();
