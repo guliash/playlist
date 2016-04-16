@@ -1,6 +1,7 @@
 package com.github.guliash.playlist.views;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -24,12 +25,14 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     private ImageView mImage;
     private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
     private int mSingerId;
+    private CollapsingToolbarLayout mCollapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        mCollapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -90,7 +93,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     public void setSinger(Singer singer) {
         Log.e("TAG", "SET SINGER");
 
-        getSupportActionBar().setTitle(singer.name);
+        mCollapsingToolbar.setTitle(singer.name);
         mName.setText(singer.name);
         mGenres.setText(TextUtils.join(", ", singer.genres));
         mTracks.setText(String.valueOf(singer.tracks));
