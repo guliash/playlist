@@ -80,6 +80,12 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     @Override
     public void setSinger(Singer singer) {
         Log.e("TAG", "SET SINGER");
