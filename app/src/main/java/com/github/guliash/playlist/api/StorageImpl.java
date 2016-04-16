@@ -9,49 +9,49 @@ import com.github.guliash.playlist.structures.Singer;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * Created by gulash on 10.04.16.
  */
 public class StorageImpl implements Storage {
 
-    private List<Singer> mSingers;
     private PlaylistApi mApi;
     private Cache mCache;
     private Serializer mSerializer;
     private Deserializer mDeserializer;
+    private Executor mExecutor;
 
     public StorageImpl(PlaylistApi api, Cache cache, Serializer serializer, Deserializer deserializer) {
         mApi = api;
         mCache = cache;
         mSerializer = serializer;
         mDeserializer = deserializer;
+        mExecutor = Executors.newSingleThreadExecutor();
     }
 
     public void getSingers() {
-        //TODO currently it runs on the main thread. FIX IT!!!
-        if(mCache.isCached() && !mCache.isExpired()) {
-            Log.e(null, "FROM CACHE");
-            EventBus.getDefault().post(mCache.get(mDeserializer));
-        } else {
-            Log.e(null, "FROM CLOUD");
-            mApi.getSingers().enqueue(new Callback<List<Singer>>() {
-                @Override
-                public void onResponse(Call<List<Singer>> call, Response<List<Singer>> response) {
-                    mCache.cache(response.body(), mSerializer);
-                    EventBus.getDefault().post(response.body());
-                }
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if(mCache.isCached() && !mCache.isExpired()) {
+                    Log.e("TAG", "CACHE");
+                    EventBus.getDefault().post(mCache.get(mDeserializer));
+                } else {
+                    try {
+                        Log.e("TAG", "CLOUD");
+                        List<Singer> singers = mApi.getSingers().execute().body();
+                        mCache.cache(singers, mSerializer);
+                        EventBus.getDefault().post(singers);
+                    } catch(IOException e) {
 
-                @Override
-                public void onFailure(Call<List<Singer>> call, Throwable t) {
+                    }
                 }
-            });
-        }
+            }
+        });
 
     }
 }

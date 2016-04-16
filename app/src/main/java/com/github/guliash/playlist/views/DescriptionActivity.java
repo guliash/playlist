@@ -83,6 +83,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     @Override
     public void setSinger(Singer singer) {
         Log.e("TAG", "SET SINGER");
+        getSupportActionBar().setTitle(singer.name);
         mName.setText(singer.name);
         mGenres.setText(TextUtils.join(", ", singer.genres));
         mTracks.setText(String.valueOf(singer.tracks));
