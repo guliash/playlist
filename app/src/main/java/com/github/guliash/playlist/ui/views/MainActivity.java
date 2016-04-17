@@ -1,4 +1,4 @@
-package com.github.guliash.playlist.views;
+package com.github.guliash.playlist.ui.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.github.guliash.playlist.R;
-import com.github.guliash.playlist.adapters.SingersAdapter;
-import com.github.guliash.playlist.presenters.MainPresenter;
-import com.github.guliash.playlist.presenters.MainPresenterImpl;
+import com.github.guliash.playlist.ui.adapters.SingersAdapter;
+import com.github.guliash.playlist.ui.presenters.MainPresenter;
+import com.github.guliash.playlist.ui.presenters.MainPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
 
 import java.util.ArrayList;

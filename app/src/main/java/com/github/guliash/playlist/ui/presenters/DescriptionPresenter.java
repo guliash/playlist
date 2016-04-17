@@ -1,6 +1,6 @@
-package com.github.guliash.playlist.presenters;
+package com.github.guliash.playlist.ui.presenters;
 
-import com.github.guliash.playlist.views.DescriptionView;
+import com.github.guliash.playlist.ui.views.DescriptionView;
 
 /**
  * Created by gulash on 07.04.16.

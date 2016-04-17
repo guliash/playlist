@@ -1,4 +1,4 @@
-package com.github.guliash.playlist.adapters;
+package com.github.guliash.playlist.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -1,4 +1,4 @@
-package com.github.guliash.playlist.presenters;
+package com.github.guliash.playlist.ui.presenters;
 
 import android.text.TextUtils;
 
@@ -6,7 +6,7 @@ import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.views.MainView;
+import com.github.guliash.playlist.ui.views.MainView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.github.guliash.playlist.views;
+package com.github.guliash.playlist.ui.views;
 
 import com.github.guliash.playlist.structures.Singer;
 

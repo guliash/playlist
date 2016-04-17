@@ -1,4 +1,4 @@
-package com.github.guliash.playlist.views;
+package com.github.guliash.playlist.ui.views;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.guliash.playlist.R;
-import com.github.guliash.playlist.presenters.DescriptionPresenter;
-import com.github.guliash.playlist.presenters.DescriptionPresenterImpl;
+import com.github.guliash.playlist.ui.presenters.DescriptionPresenter;
+import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
 import com.squareup.picasso.Picasso;
 
