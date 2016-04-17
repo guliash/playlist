@@ -12,4 +12,8 @@ public interface DescriptionView {
     void setSinger(Singer singer);
 
     void onError(Throwable e);
+
+    void showLoading();
+
+    void hideLoading();
 }

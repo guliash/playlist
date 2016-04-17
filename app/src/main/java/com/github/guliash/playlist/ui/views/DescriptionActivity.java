@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.interactors.GetSingerInteractorImpl;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
 import com.github.guliash.playlist.structures.Singer;
@@ -51,7 +53,8 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         mLink = (TextView)findViewById(R.id.link);
         mDesc = (TextView)findViewById(R.id.desc);
 
-        mPresenter = new DescriptionPresenterImpl();
+        mPresenter = new DescriptionPresenterImpl(new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
+                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
     }
 
     @Override
@@ -109,6 +112,16 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     public void onError(Throwable e) {
         Snackbar snackbar = Snackbar.make(mCollapsingToolbar, e.getMessage(), Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
 

@@ -2,9 +2,7 @@ package com.github.guliash.playlist.ui.presenters;
 
 import android.text.TextUtils;
 
-import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
-import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.MainView;
 
@@ -21,9 +19,8 @@ public class MainPresenterImpl implements MainPresenter {
     private GetSingersInteractor mGetSingersInteractor;
     private boolean mWaitingSingers;
 
-    public MainPresenterImpl() {
-        mGetSingersInteractor = new GetSingersInteractorImpl(PlaylistApplication.getStorage(),
-                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor());
+    public MainPresenterImpl(GetSingersInteractor getSingersInteractor) {
+        mGetSingersInteractor = getSingersInteractor;
     }
 
     @Override

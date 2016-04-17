@@ -1,8 +1,6 @@
 package com.github.guliash.playlist.ui.presenters;
 
-import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.interactors.GetSingerInteractor;
-import com.github.guliash.playlist.interactors.GetSingerInteractorImpl;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.DescriptionView;
 
@@ -12,12 +10,10 @@ import com.github.guliash.playlist.ui.views.DescriptionView;
 public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;
-    private Singer mSinger;
     private GetSingerInteractor mGetSingerInteractor;
 
-    public DescriptionPresenterImpl() {
-        mGetSingerInteractor = new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
-                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor());
+    public DescriptionPresenterImpl(GetSingerInteractor getSingerInteractor) {
+        mGetSingerInteractor = getSingerInteractor;
     }
 
     @Override
@@ -34,6 +30,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
         @Override
         public void onSinger(Singer singer) {
             if(mView != null) {
+                mView.hideLoading();
                 mView.setSinger(singer);
             }
         }
@@ -41,6 +38,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
         @Override
         public void onError(Throwable e) {
             if(mView != null) {
+                mView.hideLoading();
                 mView.onError(e);
             }
         }
@@ -49,5 +47,6 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
     @Override
     public void getSinger(int id) {
         mGetSingerInteractor.execute(mCallbacks, id);
+        mView.showLoading();
     }
 }

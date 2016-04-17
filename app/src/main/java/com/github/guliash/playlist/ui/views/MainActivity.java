@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
 import com.github.guliash.playlist.ui.presenters.MainPresenter;
 import com.github.guliash.playlist.ui.presenters.MainPresenterImpl;
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
                 mPresenter.onSingersRefresh();
             }
         });
-        mPresenter = new MainPresenterImpl();
+        mPresenter = new MainPresenterImpl(new GetSingersInteractorImpl(PlaylistApplication.getStorage(),
+                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
     }
 
     @Override
