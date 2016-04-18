@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by gulash on 16.04.16.
  */
-public interface GetSingersInteractor {
+public interface GetSingersInteractor extends Interactor {
 
     interface Callbacks {
         void onSingers(List<Singer> singers);

@@ -25,16 +25,7 @@ public class GetSingersInteractorImpl implements GetSingersInteractor {
     @Override
     public void execute(Callbacks callbacks) {
         mCallbacks = callbacks;
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    onSingers(mStorage.getSingers());
-                } catch (Throwable e) {
-                    onError(e);
-                }
-            }
-        });
+        mExecutor.execute(this);
     }
 
     private void onSingers(final List<Singer> singers) {
@@ -56,4 +47,12 @@ public class GetSingersInteractorImpl implements GetSingersInteractor {
     }
 
 
+    @Override
+    public void run() {
+        try {
+            onSingers(mStorage.getSingers());
+        } catch (Throwable e) {
+            onError(e);
+        }
+    }
 }

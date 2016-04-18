@@ -5,7 +5,7 @@ import com.github.guliash.playlist.structures.Singer;
 /**
  * Created by gulash on 16.04.16.
  */
-public interface GetSingerInteractor {
+public interface GetSingerInteractor extends Interactor {
 
     interface Callbacks {
         void onSinger(Singer singer);

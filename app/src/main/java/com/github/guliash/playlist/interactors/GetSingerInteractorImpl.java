@@ -14,6 +14,7 @@ public class GetSingerInteractorImpl implements GetSingerInteractor {
     private Executor mExecutor;
     private Executor mPostExecutor;
     private Callbacks mCallbacks;
+    private int mSingerId;
 
     public GetSingerInteractorImpl(Storage storage, Executor executor, Executor postExecutor) {
         mStorage = storage;
@@ -24,16 +25,8 @@ public class GetSingerInteractorImpl implements GetSingerInteractor {
     @Override
     public void execute(Callbacks callbacks, final int singerId) {
         mCallbacks = callbacks;
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    onSinger(mStorage.getSinger(singerId));
-                } catch (Throwable e) {
-                    onError(e);
-                }
-            }
-        });
+        mSingerId = singerId;
+        mExecutor.execute(this);
     }
 
     private void onSinger(final Singer singer) {
@@ -52,5 +45,14 @@ public class GetSingerInteractorImpl implements GetSingerInteractor {
                 mCallbacks.onError(e);
             }
         });
+    }
+
+    @Override
+    public void run() {
+        try {
+            onSinger(mStorage.getSinger(mSingerId));
+        } catch (Throwable e) {
+            onError(e);
+        }
     }
 }
