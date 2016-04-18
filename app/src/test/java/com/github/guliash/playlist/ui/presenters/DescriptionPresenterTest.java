@@ -1,16 +1,15 @@
 package com.github.guliash.playlist.ui.presenters;
 
 import android.content.Context;
-import android.test.AndroidTestCase;
 
 import com.github.guliash.playlist.api.Storage;
 import com.github.guliash.playlist.interactors.GetSingerInteractor;
 import com.github.guliash.playlist.ui.views.DescriptionView;
 
-import org.junit.runner.RunWith;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -20,8 +19,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by gulash on 17.04.16.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class DescriptionPresenterTest extends AndroidTestCase{
+public class DescriptionPresenterTest {
 
     private DescriptionPresenter descPresenter;
 
@@ -37,20 +35,15 @@ public class DescriptionPresenterTest extends AndroidTestCase{
     @Mock
     private Storage mockStorage;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-        super.setUp();
-
-        try {
-            MockitoAnnotations.initMocks(this);
-        } catch (NullPointerException e) {
-            //waiting for fix
-        }
+        MockitoAnnotations.initMocks(this);
 
         descPresenter = new DescriptionPresenterImpl(mockGetSingerInteractor);
     }
 
+    @Test
     public void testViewAttach() {
         descPresenter.onViewAttach(mockDescView);
 
