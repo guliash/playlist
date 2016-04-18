@@ -58,7 +58,6 @@ public class DescriptionPresenterTest extends AndroidTestCase{
                 anyInt());
         descPresenter.getSinger(45);
         verify(mockDescView).showLoading();
-        verify(mockDescView).hideLoading();
         verify(mockGetSingerInteractor).execute(any(GetSingerInteractor.Callbacks.class),
                 anyInt());
     }
