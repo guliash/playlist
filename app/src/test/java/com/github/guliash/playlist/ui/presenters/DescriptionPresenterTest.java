@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -44,14 +43,15 @@ public class DescriptionPresenterTest {
     }
 
     @Test
-    public void testViewAttach() {
+    public void testGetSingerFlow() {
         descPresenter.onViewAttach(mockDescView);
-
-        doNothing().when(mockGetSingerInteractor).execute(any(GetSingerInteractor.Callbacks.class),
-                anyInt());
         descPresenter.getSinger(45);
-        verify(mockDescView).showLoading();
         verify(mockGetSingerInteractor).execute(any(GetSingerInteractor.Callbacks.class),
                 anyInt());
+        verify(mockDescView).showLoading();
     }
+
+
+
+
 }

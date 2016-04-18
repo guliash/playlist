@@ -8,7 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.guliash.playlist.PlaylistApplication;
@@ -27,6 +30,8 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     private DescriptionPresenter mPresenter;
     private ImageView mImage;
     private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
+    private ProgressBar mProgress;
+    private LinearLayout mInfo;
     private int mSingerId;
     private CollapsingToolbarLayout mCollapsingToolbar;
 
@@ -52,6 +57,8 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         mAlbums = (TextView)findViewById(R.id.albums);
         mLink = (TextView)findViewById(R.id.link);
         mDesc = (TextView)findViewById(R.id.desc);
+        mProgress = (ProgressBar)findViewById(R.id.progressBar);
+        mInfo = (LinearLayout)findViewById(R.id.info);
 
         mPresenter = new DescriptionPresenterImpl(new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
                 PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
@@ -116,12 +123,15 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
 
     @Override
     public void showLoading() {
+        mProgress.setVisibility(View.VISIBLE);
+        mInfo.setVisibility(View.INVISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-
+        mProgress.setVisibility(View.INVISIBLE);
+        mInfo.setVisibility(View.VISIBLE);
     }
 
 
