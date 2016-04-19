@@ -28,20 +28,21 @@ import com.squareup.picasso.Picasso;
 public class DescriptionActivity extends AppCompatActivity implements DescriptionView {
 
     private DescriptionPresenter mPresenter;
-
-    private ImageView mImage;
-    private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
-    private ProgressBar mProgress;
-    private LinearLayout mInfo;
     private int mSingerId;
-    private CollapsingToolbarLayout mCollapsingToolbar;
+
+    ImageView image;
+    TextView name, genres, tracks, albums, link, desc;
+    ProgressBar progress;
+    LinearLayout info;
+
+    CollapsingToolbarLayout collapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        mCollapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,15 +52,15 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
 
-        mImage = (ImageView)findViewById(R.id.image);
-        mName = (TextView)findViewById(R.id.name);
-        mGenres = (TextView)findViewById(R.id.genres);
-        mTracks = (TextView)findViewById(R.id.tracks);
-        mAlbums = (TextView)findViewById(R.id.albums);
-        mLink = (TextView)findViewById(R.id.link);
-        mDesc = (TextView)findViewById(R.id.desc);
-        mProgress = (ProgressBar)findViewById(R.id.progressBar);
-        mInfo = (LinearLayout)findViewById(R.id.info);
+        image = (ImageView)findViewById(R.id.image);
+        name = (TextView)findViewById(R.id.name);
+        genres = (TextView)findViewById(R.id.genres);
+        tracks = (TextView)findViewById(R.id.tracks);
+        albums = (TextView)findViewById(R.id.albums);
+        link = (TextView)findViewById(R.id.link);
+        desc = (TextView)findViewById(R.id.desc);
+        progress = (ProgressBar)findViewById(R.id.progressBar);
+        info = (LinearLayout)findViewById(R.id.info);
 
         mPresenter = new DescriptionPresenterImpl(new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
                 PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
@@ -105,34 +106,34 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     public void setSinger(Singer singer) {
         Log.e("TAG", "SET SINGER");
 
-        mCollapsingToolbar.setTitle(singer.name);
-        mName.setText(singer.name);
-        mGenres.setText(TextUtils.join(", ", singer.genres));
-        mTracks.setText(String.valueOf(singer.tracks));
-        mAlbums.setText(String.valueOf(singer.albums));
-        mLink.setText(singer.link);
-        mDesc.setText(singer.description);
+        collapsingToolbar.setTitle(singer.name);
+        name.setText(singer.name);
+        genres.setText(TextUtils.join(", ", singer.genres));
+        tracks.setText(String.valueOf(singer.tracks));
+        albums.setText(String.valueOf(singer.albums));
+        link.setText(singer.link);
+        desc.setText(singer.description);
 
-        Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(mImage);
+        Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(image);
     }
 
     @Override
     public void onError(Throwable e) {
-        Snackbar snackbar = Snackbar.make(mCollapsingToolbar, e.getMessage(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(collapsingToolbar, e.getMessage(), Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
     @Override
     public void showLoading() {
-        mProgress.setVisibility(View.VISIBLE);
-        mInfo.setVisibility(View.INVISIBLE);
+        progress.setVisibility(View.VISIBLE);
+        info.setVisibility(View.INVISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-        mProgress.setVisibility(View.INVISIBLE);
-        mInfo.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.INVISIBLE);
+        info.setVisibility(View.VISIBLE);
     }
 
 
