@@ -70,6 +70,7 @@ public class GetSingerInteractorTest {
     @Test
     public void runWithError() throws Throwable {
         doThrow(Throwable.class).when(mockStorage).getSinger(anyInt());
+
         getSingerInteractor.execute(mockCallbacks, SINGER_ID);
         getSingerInteractor.run();
 

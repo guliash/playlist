@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 public class DescriptionActivity extends AppCompatActivity implements DescriptionView {
 
     private DescriptionPresenter mPresenter;
+
     private ImageView mImage;
     private TextView mName, mGenres, mTracks, mAlbums, mLink, mDesc;
     private ProgressBar mProgress;

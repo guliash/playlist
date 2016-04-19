@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.concurrent.Executor;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -48,6 +49,22 @@ public class GetSingersInteractorTest {
 
     @Test
     public void runWithoutError() throws Throwable {
+        getSingersInteractor.execute(mockCallbacks);
+        getSingersInteractor.run();
+
+        verify(mockExecutor).execute(any(Runnable.class));
+        verify(mockStorage).getSingers();
+        verify(mockPostExecutor).execute(any(Runnable.class));
+
+        verifyNoMoreInteractions(mockStorage);
+        verifyNoMoreInteractions(mockExecutor);
+        verifyNoMoreInteractions(mockPostExecutor);
+    }
+
+    @Test
+    public void runWithError() throws Throwable {
+        doThrow(Throwable.class).when(mockStorage).getSingers();
+
         getSingersInteractor.execute(mockCallbacks);
         getSingersInteractor.run();
 
