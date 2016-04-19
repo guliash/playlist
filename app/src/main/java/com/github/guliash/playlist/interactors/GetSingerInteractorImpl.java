@@ -52,7 +52,7 @@ public class GetSingerInteractorImpl implements GetSingerInteractor {
         try {
             onSinger(mStorage.getSinger(mSingerId));
         } catch (Throwable e) {
-            //onError(e);
+            onError(e);
         }
     }
 }
