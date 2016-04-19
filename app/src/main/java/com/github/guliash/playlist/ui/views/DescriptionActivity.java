@@ -17,10 +17,13 @@ import android.widget.TextView;
 import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.interactors.GetSingerInteractorImpl;
+import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
-import com.github.guliash.playlist.structures.Singer;
 import com.squareup.picasso.Picasso;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by gulash on 08.04.16.
@@ -30,19 +33,25 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     private DescriptionPresenter mPresenter;
     private int mSingerId;
 
-    ImageView image;
-    TextView name, genres, tracks, albums, link, desc;
-    ProgressBar progress;
-    LinearLayout info;
+    @Bind(R.id.image) ImageView image;
+    @Bind(R.id.name) TextView name;
+    @Bind(R.id.genres) TextView genres;
+    @Bind(R.id.tracks) TextView tracks;
+    @Bind(R.id.albums) TextView albums;
+    @Bind(R.id.link) TextView link;
+    @Bind(R.id.desc) TextView desc;
+    @Bind(R.id.progressBar) ProgressBar progress;
+    @Bind(R.id.info) LinearLayout info;
 
-    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,16 +60,6 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
         } else {
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
-
-        image = (ImageView)findViewById(R.id.image);
-        name = (TextView)findViewById(R.id.name);
-        genres = (TextView)findViewById(R.id.genres);
-        tracks = (TextView)findViewById(R.id.tracks);
-        albums = (TextView)findViewById(R.id.albums);
-        link = (TextView)findViewById(R.id.link);
-        desc = (TextView)findViewById(R.id.desc);
-        progress = (ProgressBar)findViewById(R.id.progressBar);
-        info = (LinearLayout)findViewById(R.id.info);
 
         mPresenter = new DescriptionPresenterImpl(new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
                 PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
