@@ -6,4 +6,4 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 script:
-  - ./gradlew build
+  - ./gradlew test
