@@ -1,8 +1,5 @@
 package com.github.guliash.playlist.ui.presenters;
 
-import android.content.Context;
-
-import com.github.guliash.playlist.api.Storage;
 import com.github.guliash.playlist.interactors.GetSingerInteractor;
 import com.github.guliash.playlist.ui.views.DescriptionView;
 
@@ -23,16 +20,10 @@ public class DescriptionPresenterTest {
     private DescriptionPresenter descPresenter;
 
     @Mock
-    private Context mockContext;
-
-    @Mock
     private DescriptionView mockDescView;
 
     @Mock
     private GetSingerInteractor mockGetSingerInteractor;
-
-    @Mock
-    private Storage mockStorage;
 
     @Before
     public void setUp() throws Exception {
@@ -43,7 +34,7 @@ public class DescriptionPresenterTest {
     }
 
     @Test
-    public void testGetSingerFlow() {
+    public void getSinger() {
         descPresenter.onViewAttach(mockDescView);
         descPresenter.getSinger(45);
         verify(mockGetSingerInteractor).execute(any(GetSingerInteractor.Callbacks.class),

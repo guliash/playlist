@@ -17,7 +17,6 @@ public class MainPresenterImpl implements MainPresenter {
     private MainView mView;
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
-    private boolean mWaitingSingers;
 
     public MainPresenterImpl(GetSingersInteractor getSingersInteractor) {
         mGetSingersInteractor = getSingersInteractor;
@@ -39,7 +38,6 @@ public class MainPresenterImpl implements MainPresenter {
         @Override
         public void onSingers(List<Singer> singers) {
             if(mView != null) {
-                mWaitingSingers = false;
                 mView.setSingers(applyFilter(singers));
                 mView.hideProgress();
             }
@@ -48,7 +46,6 @@ public class MainPresenterImpl implements MainPresenter {
         @Override
         public void onError(Throwable e) {
             if(mView != null) {
-                mWaitingSingers = false;
                 mView.hideProgress();
                 mView.onSingersError(e);
             }
@@ -72,10 +69,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void getSingers() {
-        if(!mWaitingSingers) {
-            mWaitingSingers = true;
-            mGetSingersInteractor.execute(mCallbacks);
-        }
+        mGetSingersInteractor.execute(mCallbacks);
     }
 
     private List<Singer> applyFilter(List<Singer> singers) {
