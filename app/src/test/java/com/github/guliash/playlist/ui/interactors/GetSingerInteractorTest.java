@@ -60,7 +60,10 @@ public class GetSingerInteractorTest {
         verify(mockExecutor).execute(any(Runnable.class));
         verify(mockStorage).getSinger(anyInt());
         verify(mockPostExecutor).execute(any(Runnable.class));
+
+        verifyNoMoreInteractions(mockStorage);
         verifyNoMoreInteractions(mockExecutor);
+        verifyNoMoreInteractions(mockPostExecutor);
 
     }
 
@@ -73,7 +76,10 @@ public class GetSingerInteractorTest {
         verify(mockExecutor).execute(any(Runnable.class));
         verify(mockStorage).getSinger(anyInt());
         verify(mockPostExecutor).execute(any(Runnable.class));
+
+        verifyNoMoreInteractions(mockStorage);
         verifyNoMoreInteractions(mockExecutor);
+        verifyNoMoreInteractions(mockPostExecutor);
     }
 
 }
