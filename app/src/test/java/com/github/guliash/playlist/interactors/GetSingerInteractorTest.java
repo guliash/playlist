@@ -1,13 +1,13 @@
 package com.github.guliash.playlist.interactors;
 
 import com.github.guliash.playlist.api.Storage;
+import com.github.guliash.playlist.executors.JobExecutor;
+import com.github.guliash.playlist.executors.UIExecutor;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.concurrent.Executor;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -24,10 +24,10 @@ public class GetSingerInteractorTest {
     private Storage mockStorage;
 
     @Mock
-    private Executor mockExecutor;
+    private JobExecutor mockExecutor;
 
     @Mock
-    private Executor mockPostExecutor;
+    private UIExecutor mockPostExecutor;
 
     @Mock
     private GetSingerInteractor.Callbacks mockCallbacks;
