@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -16,18 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.R;
-import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
+import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
 import com.github.guliash.playlist.ui.presenters.MainPresenter;
-import com.github.guliash.playlist.ui.presenters.MainPresenterImpl;
-import com.github.guliash.playlist.structures.Singer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainView, SingersAdapter.Callbacks {
+public class MainActivity extends BaseActivity implements MainView, SingersAdapter.Callbacks {
 
     private MainPresenter mPresenter;
     private RecyclerView mSingersList;
@@ -56,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Singers
                 mPresenter.onSingersRefresh();
             }
         });
-        mPresenter = new MainPresenterImpl(new GetSingersInteractorImpl(PlaylistApplication.getStorage(),
-                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
+
+        getAppComponent().inject(this);
     }
 
     @Override

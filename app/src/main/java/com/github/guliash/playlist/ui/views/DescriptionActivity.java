@@ -3,7 +3,6 @@ package com.github.guliash.playlist.ui.views;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,13 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.github.guliash.playlist.PlaylistApplication;
 import com.github.guliash.playlist.R;
-import com.github.guliash.playlist.interactors.GetSingerInteractorImpl;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.presenters.DescriptionPresenter;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,9 +26,11 @@ import butterknife.ButterKnife;
 /**
  * Created by gulash on 08.04.16.
  */
-public class DescriptionActivity extends AppCompatActivity implements DescriptionView {
+public class DescriptionActivity extends BaseActivity implements DescriptionView {
 
-    private DescriptionPresenter mPresenter;
+    @Inject
+    DescriptionPresenterImpl mPresenter;
+
     private int mSingerId;
 
     @Bind(R.id.image) ImageView image;
@@ -42,7 +42,6 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
     @Bind(R.id.desc) TextView desc;
     @Bind(R.id.progressBar) ProgressBar progress;
     @Bind(R.id.info) LinearLayout info;
-
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
 
     @Override
@@ -61,8 +60,7 @@ public class DescriptionActivity extends AppCompatActivity implements Descriptio
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
 
-        mPresenter = new DescriptionPresenterImpl(new GetSingerInteractorImpl(PlaylistApplication.getStorage(),
-                PlaylistApplication.getJobExecutor(), PlaylistApplication.getUIExecutor()));
+        getAppComponent().inject(this);
     }
 
     @Override
