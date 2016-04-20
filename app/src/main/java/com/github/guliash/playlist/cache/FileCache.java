@@ -25,7 +25,7 @@ public class FileCache implements Cache {
 
     private static final String FILENAME = "singers";
     private static final String UPDATE_EXTRA = "update";
-    private static final int EXPIRATION_INTERVAL = 10 * 1000;
+    private static final int EXPIRATION_INTERVAL = 1 * 1000;
 
     private Context mContext;
     private Serializer mSerializer;

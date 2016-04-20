@@ -16,35 +16,44 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
-import com.github.guliash.playlist.ui.presenters.MainPresenter;
+import com.github.guliash.playlist.ui.presenters.MainPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity implements MainView, SingersAdapter.Callbacks {
 
-    private MainPresenter mPresenter;
-    private RecyclerView mSingersList;
+    @Inject
+    MainPresenterImpl mPresenter;
+
     private SingersAdapter mSingersAdapter;
-    private SwipeRefreshLayout mSwipe;
-    private ProgressBar mProgress;
+
+    @Bind(R.id.singers) RecyclerView mSingersList;
+
+    @Bind(R.id.swipe) SwipeRefreshLayout mSwipe;
+
+    @Bind(R.id.progressBar) ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mSingersList = (RecyclerView)findViewById(R.id.singers);
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
-        mSwipe = (SwipeRefreshLayout)findViewById(R.id.swipe);
-        mProgress = (ProgressBar)findViewById(R.id.progressBar);
 
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -53,7 +62,7 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
             }
         });
 
-        getAppComponent().inject(this);
+        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
     }
 
     @Override

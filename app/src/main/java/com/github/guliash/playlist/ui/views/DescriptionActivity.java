@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
 import com.squareup.picasso.Picasso;
@@ -60,7 +61,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
 
-        getAppComponent().inject(this);
+        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
     }
 
     @Override

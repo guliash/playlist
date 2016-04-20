@@ -9,6 +9,8 @@ import com.github.guliash.playlist.ui.views.MainView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by gulash on 07.04.16.
  */
@@ -18,6 +20,7 @@ public class MainPresenterImpl implements MainPresenter {
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
 
+    @Inject
     public MainPresenterImpl(GetSingersInteractor getSingersInteractor) {
         mGetSingersInteractor = getSingersInteractor;
     }
