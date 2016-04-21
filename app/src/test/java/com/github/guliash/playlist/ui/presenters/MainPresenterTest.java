@@ -76,7 +76,7 @@ public class MainPresenterTest {
 
         mainPresenter.onViewAttach(mockMainView);
 
-        mainPresenter.onSingerClicked(mockSinger);
+        mainPresenter.onSingerSelected(mockSinger);
 
         verify(mockMainView).navigateToDescription(any(Singer.class));
     }

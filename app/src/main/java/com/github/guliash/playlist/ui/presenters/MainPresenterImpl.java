@@ -53,7 +53,7 @@ public class MainPresenterImpl implements MainPresenter {
     };
 
     @Override
-    public void onSingerClicked(Singer singer) {
+    public void onSingerSelected(Singer singer) {
         mView.navigateToDescription(singer);
     }
 

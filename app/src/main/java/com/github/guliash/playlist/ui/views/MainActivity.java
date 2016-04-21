@@ -161,6 +161,6 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
 
     @Override
     public void onSingerClicked(Singer singer) {
-        mPresenter.onSingerClicked(singer);
+        mPresenter.onSingerSelected(singer);
     }
 }

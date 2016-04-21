@@ -18,16 +18,47 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+/**
+ * File {@link Cache} implementation
+ */
 public class FileCache implements Cache {
 
+    /**
+     * The cache filename
+     */
     private static final String FILENAME = "singers";
+
+    /**
+     * The last update time in preferences
+     */
     private static final String UPDATE_EXTRA = "update";
+
+    /**
+     * The expiration interval
+     */
     private static final int EXPIRATION_INTERVAL = 30 * 1000;
 
+    /**
+     * The context
+     */
     private Context mContext;
+
+    /**
+     * The serializer
+     */
     private Serializer mSerializer;
+
+    /**
+     * The deserializer
+     */
     private Deserializer mDeserializer;
 
+    /**
+     *
+     * @param context the context
+     * @param serializer the serializer 
+     * @param deserializer
+     */
     public FileCache(Context context, Serializer serializer, Deserializer deserializer) {
         mContext = context;
         mSerializer = serializer;
