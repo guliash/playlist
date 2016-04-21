@@ -2,9 +2,6 @@ package com.github.guliash.playlist.structures;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
 public class Singer {
 
     @SerializedName("id")
