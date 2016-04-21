@@ -4,9 +4,6 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
-/**
- * Created by gulash on 16.04.16.
- */
 public interface GetSingersInteractor extends Interactor {
 
     interface Callbacks {

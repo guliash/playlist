@@ -24,9 +24,6 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by gulash on 08.04.16.
- */
 public class DescriptionActivity extends BaseActivity implements DescriptionView {
 
     @Inject

@@ -9,9 +9,6 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
-/**
- * Created by gulash on 16.04.16.
- */
 public class GetSingerInteractorImpl implements GetSingerInteractor {
 
     private Storage mStorage;

@@ -6,9 +6,6 @@ import com.github.guliash.playlist.di.components.AppComponent;
 import com.github.guliash.playlist.di.components.DaggerAppComponent;
 import com.github.guliash.playlist.di.modules.AppModule;
 
-/**
- * Created by gulash on 07.04.16.
- */
 public class PlaylistApplication extends Application {
 
     private AppComponent mAppComponent;

@@ -26,9 +26,6 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by gulash on 20.04.16.
- */
 @Module
 public class AppModule {
 

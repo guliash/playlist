@@ -11,9 +11,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Created by gulash on 07.04.16.
- */
 public class MainPresenterImpl implements MainPresenter {
 
     private MainView mView;

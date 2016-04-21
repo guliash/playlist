@@ -17,9 +17,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by gulash on 08.04.16.
- */
 public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerViewHolder> {
 
     public static class SingerViewHolder extends RecyclerView.ViewHolder {

@@ -8,9 +8,6 @@ import com.github.guliash.playlist.interactors.GetSingersInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by gulash on 20.04.16.
- */
 @Module
 public class SingersModule {
 

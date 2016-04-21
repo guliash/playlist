@@ -6,9 +6,6 @@ import com.github.guliash.playlist.ui.views.DescriptionView;
 
 import javax.inject.Inject;
 
-/**
- * Created by gulash on 07.04.16.
- */
 public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;

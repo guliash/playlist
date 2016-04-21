@@ -7,9 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Created by gulash on 11.04.16.
- */
 public class JsonSerializer implements Serializer {
 
     @Inject

@@ -18,9 +18,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-/**
- * Created by gulash on 11.04.16.
- */
 public class FileCache implements Cache {
 
     private static final String FILENAME = "singers";

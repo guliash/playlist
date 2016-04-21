@@ -7,9 +7,6 @@ import com.github.guliash.playlist.ui.views.MainActivity;
 
 import dagger.Component;
 
-/**
- * Created by gulash on 20.04.16.
- */
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = SingersModule.class)
 public interface SingersComponent {
