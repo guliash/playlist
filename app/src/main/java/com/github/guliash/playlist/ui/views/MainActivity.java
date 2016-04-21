@@ -42,14 +42,22 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
 
     @Bind(R.id.progressBar) ProgressBar mProgress;
 
+    private static final String QUERY_EXTRA = "query";
+
+    private String mQuery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+
+        if(savedInstanceState != null) {
+            mQuery = savedInstanceState.getString(QUERY_EXTRA);
+        }
 
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
@@ -61,8 +69,6 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
                 mPresenter.onSingersRefresh();
             }
         });
-
-        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
     }
 
     @Override
@@ -78,31 +84,36 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(QUERY_EXTRA, mQuery);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView search = (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mPresenter.onSingersSearch(query);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(TextUtils.isEmpty(newText)) {
-                    mPresenter.onSingersSearch(newText);
-                    return true;
-                }
-                return false;
+                mQuery = newText;
+                mPresenter.onSingersSearch(mQuery);
+                return true;
             }
         });
-
+        if(!TextUtils.isEmpty(mQuery)) {
+            search.setQuery(mQuery, true);
+            search.setIconified(false);
+        }
         return true;
     }
 

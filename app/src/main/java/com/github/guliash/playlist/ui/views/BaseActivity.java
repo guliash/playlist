@@ -10,6 +10,8 @@ import com.github.guliash.playlist.di.components.AppComponent;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    protected static final String LOG_TAG = "playlist";
+
     protected AppComponent getAppComponent() {
         return ((PlaylistApplication)getApplication()).getAppComponent();
     }

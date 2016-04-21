@@ -50,9 +50,9 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
         ButterKnife.bind(this);
+        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(savedInstanceState != null) {
@@ -61,7 +61,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
 
-        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
+
     }
 
     @Override
