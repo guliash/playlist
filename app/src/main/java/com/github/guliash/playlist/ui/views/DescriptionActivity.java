@@ -1,7 +1,10 @@
 package com.github.guliash.playlist.ui.views;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -36,11 +39,11 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
     @Bind(R.id.genres) TextView genres;
     @Bind(R.id.tracks) TextView tracks;
     @Bind(R.id.albums) TextView albums;
-    @Bind(R.id.link) TextView link;
     @Bind(R.id.desc) TextView desc;
     @Bind(R.id.progressBar) ProgressBar progress;
     @Bind(R.id.info) LinearLayout info;
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.fab) FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,13 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         } else {
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.urlButtonClicked();
+            }
+        });
 
 
     }
@@ -106,7 +116,6 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         genres.setText(TextUtils.join(", ", singer.genres));
         tracks.setText(String.valueOf(singer.tracks));
         albums.setText(String.valueOf(singer.albums));
-        link.setText(singer.link);
         desc.setText(singer.description);
 
         Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(image);
@@ -129,6 +138,12 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
     public void hideLoading() {
         progress.setVisibility(View.INVISIBLE);
         info.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void goToUrl(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
 

@@ -30,4 +30,10 @@ public interface DescriptionView {
      * Hides loading
      */
     void hideLoading();
+
+    /**
+     * Goes to the url
+     * @param url url
+     */
+    void goToUrl(String url);
 }

@@ -23,4 +23,7 @@ public interface DescriptionPresenter {
      * @param id singer's id
      */
     void getSinger(int id);
+
+
+    void urlButtonClicked();
 }

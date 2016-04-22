@@ -10,6 +10,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;
     private GetSingerInteractor mGetSingerInteractor;
+    private Singer mSinger; //TODO SHOULD IT BE HERE OR SHOULD I CREATE SEPARATE PRESENTER FOR URL
 
     @Inject
     public DescriptionPresenterImpl(GetSingerInteractor getSingerInteractor) {
@@ -32,6 +33,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
             if(mView != null) {
                 mView.hideLoading();
                 mView.setSinger(singer);
+                mSinger = singer;
             }
         }
 
@@ -48,5 +50,12 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
     public void getSinger(int id) {
         mGetSingerInteractor.execute(mCallbacks, id);
         mView.showLoading();
+    }
+
+    @Override
+    public void urlButtonClicked() {
+        if(mSinger != null) {
+            mView.goToUrl(mSinger.link);
+        }
     }
 }
