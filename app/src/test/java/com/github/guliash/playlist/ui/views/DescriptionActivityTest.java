@@ -56,8 +56,6 @@ public class DescriptionActivityTest {
                 activity.tracks.getText()));
         assertTrue("Albums view contains correct text", TextUtils.equals(singer.albums.toString(),
                 activity.albums.getText()));
-        assertTrue("Link view contains correct text", TextUtils.equals(singer.link,
-                activity.link.getText()));
         assertTrue("Description view contains correct text", TextUtils.equals(singer.description,
                 activity.desc.getText()));
     }
