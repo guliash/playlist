@@ -6,6 +6,9 @@ import com.github.guliash.playlist.ui.views.DescriptionView;
 
 import javax.inject.Inject;
 
+/**
+ * An implementation of {@link DescriptionPresenter}
+ */
 public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;

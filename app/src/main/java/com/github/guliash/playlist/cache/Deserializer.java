@@ -1,5 +1,7 @@
 package com.github.guliash.playlist.cache;
 
+import android.support.annotation.NonNull;
+
 import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
@@ -14,6 +16,6 @@ public interface Deserializer {
      * @param serialized serialized singers
      * @return deserialized singers
      */
-    List<Singer> deserializeSingers(String serialized);
+    List<Singer> deserializeSingers(@NonNull String serialized);
 
 }

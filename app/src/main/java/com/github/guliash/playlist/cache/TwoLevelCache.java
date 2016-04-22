@@ -4,6 +4,9 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
+/**
+ * Two level cache: File and Ram caches are used
+ */
 public class TwoLevelCache implements Cache {
 
     private FileCache mFileCache;

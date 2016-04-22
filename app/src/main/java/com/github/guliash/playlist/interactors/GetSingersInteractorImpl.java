@@ -10,11 +10,26 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
+/**
+ * Implementation of {@link GetSingersInteractor}
+ */
 public class GetSingersInteractorImpl implements GetSingersInteractor {
 
-    private Executor mExecutor;
-    private Executor mPostExecutor;
+    /**
+     * The storage to take a singer from
+     */
     private Storage mStorage;
+
+    /**
+     * Background executor
+     */
+    private Executor mExecutor;
+
+    /**
+     * Post executor (UI)
+     */
+    private Executor mPostExecutor;
+
     private Callbacks mCallbacks;
 
     @Inject
@@ -30,6 +45,10 @@ public class GetSingersInteractorImpl implements GetSingersInteractor {
         mExecutor.execute(this);
     }
 
+    /**
+     * Posts the singers back to the UI thread
+     * @param singers the singers
+     */
     private void onSingers(final List<Singer> singers) {
         mPostExecutor.execute(new Runnable() {
             @Override
@@ -39,6 +58,10 @@ public class GetSingersInteractorImpl implements GetSingersInteractor {
         });
     }
 
+    /**
+     * Posts the error back to the UI thread
+     * @param e the error
+     */
     private void onError(final Throwable e) {
         mPostExecutor.execute(new Runnable() {
             @Override

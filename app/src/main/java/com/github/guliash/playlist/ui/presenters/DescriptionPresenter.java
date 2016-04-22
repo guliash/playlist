@@ -24,6 +24,8 @@ public interface DescriptionPresenter {
      */
     void getSinger(int id);
 
-
+    /**
+     * Handles a click of the url button
+     */
     void urlButtonClicked();
 }

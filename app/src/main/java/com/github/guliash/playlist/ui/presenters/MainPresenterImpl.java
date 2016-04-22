@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * An implementation of {@link MainPresenter}
+ */
 public class MainPresenterImpl implements MainPresenter {
 
     private MainView mView;

@@ -7,11 +7,26 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
+/**
+ * Implementation of {@link Storage}: uses cache and cloud
+ */
 public class StorageImpl implements Storage {
 
+    /**
+     * Cloud API
+     */
     private PlaylistApi mApi;
+
+    /**
+     * Cache
+     */
     private Cache mCache;
 
+    /**
+     *
+     * @param api the cloud API to get singers
+     * @param cache the cache to get singers
+     */
     public StorageImpl(PlaylistApi api, Cache cache) {
         mApi = api;
         mCache = cache;

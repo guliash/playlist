@@ -5,6 +5,9 @@ import android.os.Looper;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Executor which runs on the main thread
+ */
 public class UIExecutor implements Executor {
 
     private Handler mHandler;
@@ -13,6 +16,10 @@ public class UIExecutor implements Executor {
         mHandler = new Handler(Looper.getMainLooper());
     }
 
+    /**
+     * Executes the runnable on the main thread
+     * @param runnable the runnable
+     */
     @Override
     public void execute(Runnable runnable) {
         mHandler.post(runnable);

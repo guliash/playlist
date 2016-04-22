@@ -6,17 +6,31 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Simple executor based on {@link ThreadPoolExecutor}
+ */
 public class JobExecutor implements Executor {
 
     private ThreadPoolExecutor mPoolExecutor;
 
+    /**
+     * See {@link ThreadPoolExecutor#ThreadPoolExecutor(int, int, long, TimeUnit, BlockingQueue)}
+     * @param corePoolSize
+     * @param maximumPoolSize
+     * @param keepAliveTime
+     * @param timeUnit
+     * @param workQueue
+     */
     public JobExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit timeUnit,
                        BlockingQueue<Runnable> workQueue) {
-
         mPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit,
                 workQueue, new JobThreadFactory());
     }
 
+    /**
+     * Executes the runnable in the executor
+     * @param runnable the runnable
+     */
     @Override
     public void execute(Runnable runnable) {
         mPoolExecutor.execute(runnable);

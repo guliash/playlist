@@ -2,6 +2,8 @@ package com.github.guliash.playlist.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.github.guliash.playlist.structures.Singer;
@@ -59,7 +61,8 @@ public class FileCache implements Cache {
      * @param serializer the serializer 
      * @param deserializer
      */
-    public FileCache(Context context, Serializer serializer, Deserializer deserializer) {
+    public FileCache(@NonNull Context context, @NonNull Serializer serializer,
+                     @NonNull Deserializer deserializer) {
         mContext = context;
         mSerializer = serializer;
         mDeserializer = deserializer;
@@ -77,7 +80,7 @@ public class FileCache implements Cache {
     }
 
     @Override
-    public void cache(List<Singer> singers) {
+    public void cache(@NonNull List<Singer> singers) {
         write(mSerializer.serializeSingers(singers));
         putTimeToPrefs();
     }
@@ -99,6 +102,9 @@ public class FileCache implements Cache {
         return System.currentTimeMillis() - prev > EXPIRATION_INTERVAL;
     }
 
+    /**
+     * Puts last update time to the shared preferences
+     */
     private void putTimeToPrefs() {
         SharedPreferences.Editor editor = mContext.
                 getSharedPreferences(FILENAME, Context.MODE_PRIVATE).edit();
@@ -106,10 +112,19 @@ public class FileCache implements Cache {
         editor.commit();
     }
 
+    /**
+     * Writes text to the cache file
+     * @param text
+     */
     private void write(String text) {
         write(new File(mContext.getCacheDir(), FILENAME), text);
     }
 
+    /**
+     * Writes text to the give file
+     * @param file the file to write in
+     * @param text the text to write
+     */
     private void write(File file, String text) {
         try {
             FileOutputStream outputStream = new FileOutputStream(file);
@@ -119,6 +134,11 @@ public class FileCache implements Cache {
         }
     }
 
+    /**
+     * Writes text using instance of {@link OutputStream}
+     * @param outputStream the instance of {@link OutputStream}
+     * @param text text to write
+     */
     private void write(OutputStream outputStream, String text) {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
         BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -135,11 +155,20 @@ public class FileCache implements Cache {
         }
     }
 
-    private String read() {
+    /**
+     * Reads string from the cached file
+     * @return the read string
+     */
+    @Nullable private String read() {
         return read(new File(mContext.getCacheDir(), FILENAME));
     }
 
-    private String read(File file) {
+    /**
+     * Reads string from the given file
+     * @param file the file
+     * @return the read string
+     */
+    @Nullable private String read(File file) {
         try {
             FileInputStream inputStream = new FileInputStream(file);
             return read(inputStream);
@@ -148,7 +177,12 @@ public class FileCache implements Cache {
         }
     }
 
-    private String read(InputStream inputStream) {
+    /**
+     * Read string from using the given instance of {@link InputStream}
+     * @param inputStream the instance of {@link InputStream}
+     * @return the read string
+     */
+    @Nullable private String read(InputStream inputStream) {
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
         String token;

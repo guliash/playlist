@@ -6,10 +6,19 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
+/**
+ * RAM {@link Cache} implementation
+ */
 public class RAMCache implements Cache {
 
+    /**
+     * Time of the last update
+     */
     private long mLastUpdate;
 
+    /**
+     * Cached list of singers
+     */
     private List<Singer> mSingers;
 
     private static final int EXPIRATION_INTERVAL = 30 * 1000;

@@ -1,7 +1,6 @@
 package com.github.guliash.playlist.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +16,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * An adapter of singers
+ */
 public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerViewHolder> {
 
     public static class SingerViewHolder extends RecyclerView.ViewHolder {
@@ -34,22 +36,6 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
             mGenres = (TextView)itemView.findViewById(R.id.genres);
             mDesc = (TextView)itemView.findViewById(R.id.desc);
             mCover = (ImageView)itemView.findViewById(R.id.cover);
-        }
-    }
-
-    public static class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int mVerticalSpace;
-
-        public VerticalSpaceItemDecoration(int verticalSpace) {
-            mVerticalSpace = verticalSpace;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            if(parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mVerticalSpace;
-            }
         }
     }
 
