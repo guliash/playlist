@@ -3,6 +3,7 @@ package com.github.guliash.playlist.ui.views;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -141,9 +142,11 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
     }
 
     @Override
-    public void goToUrl(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(intent);
+    public void goToUrl(@Nullable String url) {
+        if(!TextUtils.isEmpty(url)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
     }
 
 

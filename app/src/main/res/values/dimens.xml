@@ -3,4 +3,24 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="detail_appbar_height">256dp</dimen>
+    <dimen name="singer_card_elevation">3dp</dimen>
+    <dimen name="singer_card_radius">8dp</dimen>
+    <dimen name="singer_card_image_width">100dp</dimen>
+    <dimen name="singer_card_image_height">100dp</dimen>
+    <dimen name="singer_card_padding">6dp</dimen>
+    <dimen name="singer_card_text_margin">8dp</dimen>
+
+    <dimen name="singer_desc_card_elevation">3dp</dimen>
+    <dimen name="singer_desc_card_radius">8dp</dimen>
+    <dimen name="singer_desc_card_padding">10dp</dimen>
+
+    <dimen name="singer_info_card_elevation">3dp</dimen>
+    <dimen name="singer_info_card_radius">8dp</dimen>
+    <dimen name="singer_info_card_padding">10dp</dimen>
+    <dimen name="singer_info_card_padding_between_texts">5dp</dimen>
+
+    <dimen name="activity_desc_fab_margin">16dp</dimen>
+    <dimen name="activity_desc_cards_padding">16dp</dimen>
+    <dimen name="activity_desc_title_margin_start">48dp</dimen>
+    <dimen name="activity_desc_title_margin_end">64dp</dimen>
 </resources>

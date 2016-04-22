@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="@color/item_background"
-    card_view:cardElevation="3dp"
-    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="@dimen/singer_desc_card_elevation"
+    card_view:cardCornerRadius="@dimen/singer_desc_card_radius"
     card_view:cardUseCompatPadding="true"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/singer_desc_card_padding">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
