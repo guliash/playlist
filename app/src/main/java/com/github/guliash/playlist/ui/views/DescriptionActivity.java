@@ -27,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DescriptionActivity extends BaseActivity implements DescriptionView {
 
@@ -61,15 +62,6 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         } else {
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
         }
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.urlButtonClicked();
-            }
-        });
-
-
     }
 
     @Override
@@ -102,10 +94,14 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @OnClick(R.id.fab)
+    public void urlFabClicked() {
+        mPresenter.urlButtonClicked();
     }
 
     @Override
@@ -148,6 +144,8 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
             startActivity(intent);
         }
     }
+
+
 
 
 }
