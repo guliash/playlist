@@ -47,6 +47,10 @@ public class DescriptionActivityInstTest {
                 new TestAppModule(application)).build());
     }
 
+    /**
+     * Tests that a singer's data is correctly shown
+     * @throws Throwable
+     */
     @Test
     public void validateSingerData() throws Throwable {
         Intent intent = new Intent();
@@ -61,6 +65,10 @@ public class DescriptionActivityInstTest {
     }
 
 
+    /**
+     * Tests that an intent for browser successfully sent
+     * @throws Throwable
+     */
     @Test
     public void validateViewIntentSent() throws Throwable {
         Intents.init();

@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.github.guliash.playlist.api.Storage;
 import com.github.guliash.playlist.di.modules.AppModule;
-import com.github.guliash.playlist.executors.JobExecutor;
-import com.github.guliash.playlist.executors.UIExecutor;
+import com.github.guliash.playlist.executors.PostExecutor;
+import com.github.guliash.playlist.executors.ThreadExecutor;
 
 import javax.inject.Singleton;
 
@@ -17,9 +17,9 @@ public interface AppComponent {
 
     Context context();
 
-    UIExecutor uiExecutor();
+    PostExecutor uiExecutor();
 
-    JobExecutor jobExecutor();
+    ThreadExecutor jobExecutor();
 
     Storage storage();
 

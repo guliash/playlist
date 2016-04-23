@@ -3,12 +3,10 @@ package com.github.guliash.playlist.executors;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.util.concurrent.Executor;
-
 /**
  * Executor which runs on the main thread
  */
-public class UIExecutor implements Executor {
+public class UIExecutor implements PostExecutor {
 
     private Handler mHandler;
 

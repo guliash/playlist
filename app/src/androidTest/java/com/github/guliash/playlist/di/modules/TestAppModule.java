@@ -4,18 +4,20 @@ import android.app.Application;
 import android.content.Context;
 
 import com.github.guliash.playlist.api.Storage;
-import com.github.guliash.playlist.executors.JobExecutor;
+import com.github.guliash.playlist.executors.FakeThreadExecutor;
+import com.github.guliash.playlist.executors.PostExecutor;
+import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
 import com.github.guliash.playlist.storage.FakeStorage;
-
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Fake AppModule
+ */
 @Module
 public class TestAppModule {
 
@@ -39,13 +41,13 @@ public class TestAppModule {
 
     @Provides
     @Singleton
-    JobExecutor provideJobExecutor() {
-        return new JobExecutor(3, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    ThreadExecutor provideJobExecutor() {
+        return new FakeThreadExecutor();
     }
 
     @Provides
     @Singleton
-    UIExecutor provideUIExecutor() {
+    PostExecutor provideUIExecutor() {
         return new UIExecutor();
     }
 }

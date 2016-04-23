@@ -6,6 +6,9 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Fake app component
+ */
 @Singleton
 @Component(modules = TestAppModule.class)
 public interface TestAppComponent extends AppComponent {

@@ -1,7 +1,6 @@
 package com.github.guliash.playlist.executors;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Simple executor based on {@link ThreadPoolExecutor}
  */
-public class JobExecutor implements Executor {
+public class JobExecutor implements ThreadExecutor {
 
     private ThreadPoolExecutor mPoolExecutor;
 

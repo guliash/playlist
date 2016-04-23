@@ -1,8 +1,8 @@
 package com.github.guliash.playlist.interactors;
 
 import com.github.guliash.playlist.api.Storage;
-import com.github.guliash.playlist.executors.JobExecutor;
-import com.github.guliash.playlist.executors.UIExecutor;
+import com.github.guliash.playlist.executors.PostExecutor;
+import com.github.guliash.playlist.executors.ThreadExecutor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +20,10 @@ public class GetSingersInteractorTest {
     private Storage mockStorage;
 
     @Mock
-    private JobExecutor mockExecutor;
+    private ThreadExecutor mockExecutor;
 
     @Mock
-    private UIExecutor mockPostExecutor;
+    private PostExecutor mockPostExecutor;
 
     @Mock
     private GetSingersInteractor.Callbacks mockCallbacks;

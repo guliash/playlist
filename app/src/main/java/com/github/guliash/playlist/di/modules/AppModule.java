@@ -14,6 +14,8 @@ import com.github.guliash.playlist.cache.RAMCache;
 import com.github.guliash.playlist.cache.Serializer;
 import com.github.guliash.playlist.cache.TwoLevelCache;
 import com.github.guliash.playlist.executors.JobExecutor;
+import com.github.guliash.playlist.executors.PostExecutor;
+import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -23,6 +25,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -55,8 +58,17 @@ public class AppModule {
 
     @Provides
     @Singleton
-    PlaylistApi provideCloudApi() {
-        return new Retrofit.Builder().baseUrl(PlaylistApi.YANDEX_API)
+    OkHttpClient provideHttpClient() {
+        return new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS).connectTimeout(30,
+                TimeUnit.SECONDS).build();
+    }
+
+    @Provides
+    @Singleton
+    PlaylistApi provideCloudApi(OkHttpClient okHttpClient) {
+        return new Retrofit.Builder()
+                .baseUrl(PlaylistApi.YANDEX_API)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(PlaylistApi.class);
     }
@@ -71,13 +83,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    JobExecutor provideJobExecutor() {
+    ThreadExecutor provideJobExecutor() {
         return new JobExecutor(3, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
     }
 
     @Provides
     @Singleton
-    UIExecutor provideUIExecutor() {
+    PostExecutor provideUIExecutor() {
         return new UIExecutor();
     }
 }

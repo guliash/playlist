@@ -1,12 +1,11 @@
 package com.github.guliash.playlist.interactors;
 
 import com.github.guliash.playlist.api.Storage;
-import com.github.guliash.playlist.executors.JobExecutor;
-import com.github.guliash.playlist.executors.UIExecutor;
+import com.github.guliash.playlist.executors.PostExecutor;
+import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -23,17 +22,17 @@ public class GetSingersInteractorImpl implements GetSingersInteractor {
     /**
      * Background executor
      */
-    private Executor mExecutor;
+    private ThreadExecutor mExecutor;
 
     /**
      * Post executor (UI)
      */
-    private Executor mPostExecutor;
+    private PostExecutor mPostExecutor;
 
     private Callbacks mCallbacks;
 
     @Inject
-    public GetSingersInteractorImpl(Storage storage, JobExecutor executor, UIExecutor postExecutor) {
+    public GetSingersInteractorImpl(Storage storage, ThreadExecutor executor, PostExecutor postExecutor) {
         mExecutor = executor;
         mPostExecutor = postExecutor;
         mStorage = storage;

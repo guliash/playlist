@@ -6,6 +6,9 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
+/**
+ * Fake storage which uses predefined singers
+ */
 public class FakeStorage implements Storage {
 
     @Override
