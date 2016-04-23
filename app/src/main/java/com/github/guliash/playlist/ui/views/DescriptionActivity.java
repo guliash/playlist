@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,7 +65,6 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
     @Override
     protected void onStart() {
-        Log.e("TAG", "On START");
         super.onStart();
         mPresenter.onViewAttach(this);
         mPresenter.getSinger(mSingerId);
@@ -74,7 +72,6 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
     @Override
     protected void onStop() {
-        Log.e("TAG", "On STOP");
         super.onStop();
         mPresenter.onViewDetach();
     }
@@ -106,8 +103,6 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
     @Override
     public void setSinger(Singer singer) {
-        Log.e("TAG", "SET SINGER");
-
         collapsingToolbar.setTitle(singer.name);
         name.setText(singer.name);
         genres.setText(TextUtils.join(", ", singer.genres));

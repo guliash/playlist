@@ -20,4 +20,8 @@ public class PlaylistApplication extends Application {
         return mAppComponent;
     }
 
+    public void setAppComponent(AppComponent component) {
+        mAppComponent = component;
+    }
+
 }

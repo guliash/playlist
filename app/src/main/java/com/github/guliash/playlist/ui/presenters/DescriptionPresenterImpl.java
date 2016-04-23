@@ -13,7 +13,7 @@ public class DescriptionPresenterImpl implements DescriptionPresenter{
 
     private DescriptionView mView;
     private GetSingerInteractor mGetSingerInteractor;
-    private Singer mSinger; //TODO SHOULD IT BE HERE OR SHOULD I CREATE SEPARATE PRESENTER FOR URL
+    private Singer mSinger; //TODO SHOULD IT BE HERE OR SHOULD I CREATE A SEPARATE PRESENTER FOR URL
 
     @Inject
     public DescriptionPresenterImpl(GetSingerInteractor getSingerInteractor) {
