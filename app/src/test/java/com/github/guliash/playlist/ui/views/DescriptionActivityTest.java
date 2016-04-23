@@ -33,7 +33,7 @@ public class DescriptionActivityTest {
 
     @Test
     public void singerDataCorrectlyShown() {
-        Singer singer = Constants.getTestSinger();
+        Singer singer = Constants.getSinger(Constants.SINGER_FIRST_ID);
         activity.setSinger(singer);
         assertTrue("Name view contains correct text", TextUtils.equals(singer.name, activity.name
                 .getText()));

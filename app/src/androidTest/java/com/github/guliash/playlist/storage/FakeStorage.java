@@ -6,7 +6,7 @@ import com.github.guliash.playlist.structures.Singer;
 
 import java.util.List;
 
-public class StorageStub implements Storage {
+public class FakeStorage implements Storage {
 
     @Override
     public List<Singer> getSingers() throws Throwable {

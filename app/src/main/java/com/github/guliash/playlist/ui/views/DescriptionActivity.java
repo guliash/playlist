@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(LOG_TAG, "ON CREATE");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
         ButterKnife.bind(this);

@@ -6,7 +6,7 @@ import android.content.Context;
 import com.github.guliash.playlist.api.Storage;
 import com.github.guliash.playlist.executors.JobExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
-import com.github.guliash.playlist.storage.StorageStub;
+import com.github.guliash.playlist.storage.FakeStorage;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +34,7 @@ public class TestAppModule {
     @Provides
     @Singleton
     Storage provideStorage() {
-        return new StorageStub();
+        return new FakeStorage();
     }
 
     @Provides
