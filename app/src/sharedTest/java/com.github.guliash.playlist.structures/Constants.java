@@ -10,18 +10,19 @@ import java.util.List;
  */
 public class Constants {
 
-    public static final int SINGER_FIRST_ID = 36784;
-    public static final int SINGER_SECOND_ID = 92178;
+    public static final int SINGER_FIRST_ID = 92178;
+    public static final int SINGER_SECOND_ID = 36784;
 
-    private static final String[] singerJSONS = {"{\"albums\":17,\"cover\":{\"big\":\"http://avatars" +
-            ".yandex.net/get-music-content/7da872d1.p.92178/1000x1000\",\"small\":\"http://avatars" +
-            ".yandex.net/get-music-content/7da872d1.p.92178/300x300\"},\"description\":\"американская" +
-            " рок-группа из Лос-Анджелеса, штат Калифорния, исполняющая альтернативный рок. Основана " +
-            "в 1998 году братьями Джаредом и Шенноном Лето. Название группы было взято участниками из" +
-            " статьи бывшего гарвардского профессора, где шла речь о технологическом прогрессе, в" +
-            " результате которого человечество в буквальном смысле слова окажется вскоре «в тридцати " +
-            "секундах от Марса».\",\"genres\":[\"alternative\"],\"id\":92178,\"link\":\"http://www." +
-            "thirtysecondstomars.com/\",\"name\":\"30 Seconds To Mars\",\"tracks\":72}",
+    private static final String[] singerJSONS = {
+            "{\"albums\":17,\"cover\":{\"big\":\"http://avatars" +
+                    ".yandex.net/get-music-content/7da872d1.p.92178/1000x1000\",\"small\":\"http://avatars" +
+                    ".yandex.net/get-music-content/7da872d1.p.92178/300x300\"},\"description\":\"американская" +
+                    " рок-группа из Лос-Анджелеса, штат Калифорния, исполняющая альтернативный рок. Основана " +
+                    "в 1998 году братьями Джаредом и Шенноном Лето. Название группы было взято участниками из" +
+                    " статьи бывшего гарвардского профессора, где шла речь о технологическом прогрессе, в" +
+                    " результате которого человечество в буквальном смысле слова окажется вскоре «в тридцати " +
+                    "секундах от Марса».\",\"genres\":[\"alternative\"],\"id\":92178,\"link\":\"http://www." +
+                    "thirtysecondstomars.com/\",\"name\":\"30 Seconds To Mars\",\"tracks\":72}",
             "{\"albums\":28,\"cover\":{\"big\":\"http://avatars.yandex.net/get-" +
                     "music-content/bf50a239.p.36784/1000x1000\",\"small\":\"http://avatars.yandex.net/get-" +
                     "music-content/bf50a239.p.36784/300x300\"},\"description\":\"канадская рок-группа, " +
@@ -46,6 +47,7 @@ public class Constants {
 
     /**
      * Returns predefined list of singers
+     *
      * @return
      */
     public static List<Singer> getSingers() {
@@ -54,11 +56,12 @@ public class Constants {
 
     /**
      * Gets a predefined user with the given id
+     *
      * @param id the id
      * @return the singer with the given id
      */
     public static Singer getSinger(int id) {
-        for(Singer singer : singers) {
+        for (Singer singer : singers) {
             if (singer.id == id) {
                 return singer;
             }

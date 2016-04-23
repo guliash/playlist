@@ -32,15 +32,13 @@ import static org.hamcrest.core.AllOf.allOf;
 @RunWith(AndroidJUnit4.class)
 public class DescriptionActivityInstTest {
 
-    private PlaylistApplication application;
-
     @Rule
     public ActivityTestRule<DescriptionActivity> mActivityRule = new
             ActivityTestRule<>(DescriptionActivity.class, true, false);
 
     @Before
     public void setupActivity() {
-        application = (PlaylistApplication) InstrumentationRegistry
+        PlaylistApplication application = (PlaylistApplication) InstrumentationRegistry
                 .getInstrumentation()
                 .getTargetContext().getApplicationContext();
         application.setAppComponent(DaggerTestAppComponent.builder().testAppModule(
