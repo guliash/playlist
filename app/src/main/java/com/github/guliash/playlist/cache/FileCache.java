@@ -38,7 +38,7 @@ public class FileCache implements Cache {
     /**
      * The expiration interval
      */
-    private static final int EXPIRATION_INTERVAL = 30 * 1000;
+    private static final int EXPIRATION_INTERVAL = 2 * 60 * 1000;
 
     /**
      * The context

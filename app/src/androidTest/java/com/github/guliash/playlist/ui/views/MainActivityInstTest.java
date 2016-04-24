@@ -44,9 +44,9 @@ public class MainActivityInstTest {
 
     @Test
     public void clickOnCardOpenDescription() {
-        mActivityRule.launchActivity(new Intent());
-
         Intents.init();
+
+        mActivityRule.launchActivity(new Intent());
 
         onView(withId(R.id.singers)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         intended(allOf(hasExtra(DescriptionView.SINGER_ID_EXTRA, Constants.SINGER_FIRST_ID)));
