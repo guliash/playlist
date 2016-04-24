@@ -111,8 +111,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
         tracks.setText(String.valueOf(singer.tracks));
         albums.setText(String.valueOf(singer.albums));
         desc.setText(singer.description);
-
-        Picasso.with(this).load(singer.cover.small).fit().centerCrop().into(image);
+        Picasso.with(this).load(singer.cover.small).error(R.drawable.guitar).into(image);
     }
 
     @Override

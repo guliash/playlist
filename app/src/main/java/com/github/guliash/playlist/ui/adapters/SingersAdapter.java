@@ -77,7 +77,9 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         singerViewHolder.mName.setText(singer.name);
         singerViewHolder.mGenres.setText(TextUtils.join(", ", singer.genres));
         singerViewHolder.mDesc.setText(singer.description);
-        Picasso.with(mContext).load(singer.cover.small).fit().into(singerViewHolder.mCover);
+        Picasso.with(mContext).load(singer.cover.small).error(R.drawable.ic_error_outline_black_48dp)
+                .placeholder(R.drawable.ic_account_box_outline_black_48dp).fit().centerCrop()
+                .into(singerViewHolder.mCover);
     }
 
     @Override
