@@ -2,13 +2,16 @@ package com.github.guliash.playlist.ui.views;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +49,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
     @Bind(R.id.info) LinearLayout info;
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.scroll) NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,24 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
         setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            scrollView.setTransitionGroup(true);
+        }
         if(savedInstanceState != null) {
             mSingerId = savedInstanceState.getInt(SINGER_ID_EXTRA);
         } else {
             mSingerId = getIntent().getIntExtra(SINGER_ID_EXTRA, 0);
+        }
+
+        setupWindowAnimations();
+    }
+
+    private void setupWindowAnimations() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+            fade.setDuration(500);
+            getWindow().setEnterTransition(fade);
+            getWindow().setReturnTransition(fade);
         }
     }
 
@@ -87,7 +104,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            supportFinishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -95,7 +112,7 @@ public class DescriptionActivity extends BaseActivity implements DescriptionView
 
     @Override
     public void onBackPressed() {
-        finish();
+        supportFinishAfterTransition();
     }
 
     @OnClick(R.id.fab)

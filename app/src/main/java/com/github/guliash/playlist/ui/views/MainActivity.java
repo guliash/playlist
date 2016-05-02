@@ -1,8 +1,10 @@
 package com.github.guliash.playlist.ui.views;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Fade;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,7 +62,9 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
         if(savedInstanceState != null) {
             mQuery = savedInstanceState.getString(QUERY_EXTRA);
         }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSwipe.setTransitionGroup(true);
+        }
         mSingersList.setLayoutManager(new LinearLayoutManager(this));
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this, this);
         mSingersList.setAdapter(mSingersAdapter);
@@ -69,6 +75,18 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
                 mPresenter.onSingersRefresh();
             }
         });
+        setupWindowAnimations();
+    }
+
+    private void setupWindowAnimations() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.e(LOG_TAG, "SLIDE");
+            Fade slide = new Fade();
+            slide.setDuration(500);
+            getWindow().setExitTransition(slide);
+            getWindow().setReenterTransition(slide);
+        }
+
     }
 
     @Override
@@ -154,9 +172,15 @@ public class MainActivity extends BaseActivity implements MainView, SingersAdapt
 
     @Override
     public void navigateToDescription(Singer singer) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(this, null, "cover");
         Intent intent = new Intent(this, DescriptionActivity.class);
         intent.putExtra(DescriptionView.SINGER_ID_EXTRA, singer.id);
-        startActivity(intent);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent, activityOptionsCompat.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     @Override
