@@ -10,4 +10,7 @@
     <string name="tracks">Количество треков:</string>
     <string name="albums">Количество альбомов:</string>
     <string name="link">Ссылка:</string>
+    <string name="search">Поиск</string>
+    <string name="about">О программе</string>
+    <string name="feedback">Обратная связь</string>
 </resources>
