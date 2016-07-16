@@ -4,6 +4,7 @@ import com.github.guliash.playlist.di.PerActivity;
 import com.github.guliash.playlist.di.modules.SingersModule;
 import com.github.guliash.playlist.ui.views.DescriptionActivity;
 import com.github.guliash.playlist.ui.views.MainActivity;
+import com.github.guliash.playlist.ui.views.SingersFragment;
 
 import dagger.Component;
 
@@ -14,5 +15,7 @@ public interface SingersComponent {
     void inject(MainActivity activity);
 
     void inject(DescriptionActivity activity);
+
+    void inject(SingersFragment fragment);
 
 }
