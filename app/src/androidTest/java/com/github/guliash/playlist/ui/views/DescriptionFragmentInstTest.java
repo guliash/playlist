@@ -30,11 +30,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
-public class DescriptionActivityInstTest {
+public class DescriptionFragmentInstTest {
 
     @Rule
-    public ActivityTestRule<DescriptionActivity> mActivityRule = new
-            ActivityTestRule<>(DescriptionActivity.class, true, false);
+    public ActivityTestRule<MainActivity> mActivityRule = new
+            ActivityTestRule<>(MainActivity.class, true, false);
 
     @Before
     public void setupActivity() {
@@ -51,9 +51,8 @@ public class DescriptionActivityInstTest {
      */
     @Test
     public void validateSingerData() throws Throwable {
-        Intent intent = new Intent();
-        intent.putExtra(DescriptionView.SINGER_ID_EXTRA, Constants.SINGER_FIRST_ID);
-        mActivityRule.launchActivity(intent);
+        MainActivity activity = mActivityRule.launchActivity(new Intent());
+        activity.showDescFragment(Constants.SINGER_FIRST_ID);
 
         Singer singer = Constants.getSinger(Constants.SINGER_FIRST_ID);
         onView(withId(R.id.desc)).check(matches(withText(singer.description)));
@@ -71,9 +70,8 @@ public class DescriptionActivityInstTest {
     public void validateViewIntentSent() throws Throwable {
         Intents.init();
 
-        Intent intent = new Intent();
-        intent.putExtra(DescriptionView.SINGER_ID_EXTRA, Constants.SINGER_SECOND_ID);
-        mActivityRule.launchActivity(intent);
+        MainActivity activity = mActivityRule.launchActivity(new Intent());
+        activity.showDescFragment(Constants.SINGER_SECOND_ID);
 
         Singer singer = Constants.getSinger(Constants.SINGER_SECOND_ID);
         onView(ViewMatchers.withId(R.id.fab)).perform(click());

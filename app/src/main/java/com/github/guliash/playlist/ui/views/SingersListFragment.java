@@ -1,6 +1,7 @@
 package com.github.guliash.playlist.ui.views;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -35,7 +36,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SingersFragment extends BaseFragment implements MainView, SingersAdapter.Callbacks {
+public class SingersListFragment extends BaseFragment implements MainView, SingersAdapter.Callbacks {
 
     @Inject
     MainPresenterImpl mPresenter;
@@ -54,6 +55,23 @@ public class SingersFragment extends BaseFragment implements MainView, SingersAd
     private String mQuery;
 
     private static final String QUERY_EXTRA = "query";
+
+    private Callbacks mCallbacks;
+
+    public interface Callbacks {
+        void onSingerChosen(Singer singer);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity = getActivity();
+        if(activity instanceof Callbacks) {
+            mCallbacks = (Callbacks)activity;
+        } else {
+            throw new RuntimeException("Activity must implement SingersListFragment#Callbacks");
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -169,8 +187,6 @@ public class SingersFragment extends BaseFragment implements MainView, SingersAd
 
     @Override
     public void navigateToDescription(Singer singer) {
-        Intent intent = new Intent(this.getContext(), DescriptionActivity.class);
-        intent.putExtra(DescriptionView.SINGER_ID_EXTRA, singer.id);
-        startActivity(intent);
+        mCallbacks.onSingerChosen(singer);
     }
 }

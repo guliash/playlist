@@ -4,6 +4,9 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import com.github.guliash.playlist.BuildConfig;
+import com.github.guliash.playlist.PlaylistApplication;
+import com.github.guliash.playlist.di.components.DaggerTestAppComponent;
+import com.github.guliash.playlist.di.modules.TestAppModule;
 import com.github.guliash.playlist.structures.Constants;
 import com.github.guliash.playlist.structures.Singer;
 
@@ -12,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertTrue;
@@ -22,26 +26,31 @@ import static junit.framework.Assert.assertTrue;
 
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
-public class DescriptionActivityTest {
+public class DescriptionFragmentTest {
 
-    private DescriptionActivity activity;
+    private MainActivity activity;
 
     @Before
     public void setUp() {
-        activity = Robolectric.setupActivity(DescriptionActivity.class);
+        PlaylistApplication application = (PlaylistApplication) RuntimeEnvironment.application;
+        application.setAppComponent(DaggerTestAppComponent.builder().testAppModule(
+                new TestAppModule(application)).build());
+        activity = Robolectric.setupActivity(MainActivity.class);
     }
 
     @Test
     public void singerDataCorrectlyShown() {
         Singer singer = Constants.getSinger(Constants.SINGER_FIRST_ID);
-        activity.setSinger(singer);
-        assertTrue("Name view contains correct text", TextUtils.equals(singer.name, activity.name
+        activity.showDescFragment(singer.id);
+        SingerDescFragment fragment = (SingerDescFragment)activity.getSupportFragmentManager()
+                .findFragmentByTag(MainActivity.SINGERS_DESC_TAG);
+        assertTrue("Name view contains correct text", TextUtils.equals(singer.name, fragment.name
                 .getText()));
         assertTrue("Tracks view contains correct text", TextUtils.equals(singer.tracks.toString(),
-                activity.tracks.getText()));
+                fragment.tracks.getText()));
         assertTrue("Albums view contains correct text", TextUtils.equals(singer.albums.toString(),
-                activity.albums.getText()));
+                fragment.albums.getText()));
         assertTrue("Description view contains correct text", TextUtils.equals(singer.description,
-                activity.desc.getText()));
+                fragment.desc.getText()));
     }
 }
