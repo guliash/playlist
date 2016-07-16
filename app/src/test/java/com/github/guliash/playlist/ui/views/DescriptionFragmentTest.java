@@ -20,10 +20,6 @@ import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by gulash on 19.04.16.
- */
-
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
 public class DescriptionFragmentTest {
