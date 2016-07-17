@@ -13,4 +13,5 @@
     <string name="search">Поиск</string>
     <string name="about">О программе</string>
     <string name="feedback">Обратная связь</string>
+    <string name="no_mail_app_error">Нету почтового клиента</string>
 </resources>

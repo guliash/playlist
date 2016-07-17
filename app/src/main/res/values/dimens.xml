@@ -20,6 +20,7 @@
     <dimen name="singer_info_card_padding_between_texts">5dp</dimen>
 
     <dimen name="activity_desc_fab_margin">16dp</dimen>
+    <dimen name="activity_feedback_fab_margin">16dp</dimen>
     <dimen name="activity_desc_cards_padding">16dp</dimen>
     <dimen name="activity_desc_title_margin_start">48dp</dimen>
     <dimen name="activity_desc_title_margin_end">64dp</dimen>
