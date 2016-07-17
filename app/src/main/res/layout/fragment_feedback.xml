@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/feedback"
-        style="@style/TextMediumPrimary"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:hint="@string/feedback"
         android:lines="3">
         <requestFocus/>
     </EditText>

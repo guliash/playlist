@@ -10,5 +10,5 @@
         android:layout_height="match_parent"
         android:id="@+id/about"
         android:text="@string/lorem_ipsum"
-        style="@style/TextMediumPrimary"/>
+        style="@style/TextAppearance.AppCompat.Medium"/>
 </LinearLayout>

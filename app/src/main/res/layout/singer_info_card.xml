@@ -19,11 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/info"
-            style="@style/TextLargePrimary"/>
+            style="@style/TextAppearance.AppCompat.Large"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextMediumPrimary"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:id="@+id/name"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,12 +32,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/genres"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumSecondary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginLeft="@dimen/singer_info_card_padding_between_texts"
                 android:id="@+id/genres" />
         </LinearLayout>
@@ -48,12 +48,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/tracks"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumSecondary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginLeft="@dimen/singer_info_card_padding_between_texts"
                 android:id="@+id/tracks" />
         </LinearLayout>
@@ -64,12 +64,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/albums"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumSecondary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginLeft="@dimen/singer_info_card_padding_between_texts"
                 android:id="@+id/albums" />
         </LinearLayout>

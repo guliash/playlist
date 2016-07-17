@@ -51,7 +51,7 @@ public class FeedbackFragment extends BaseFragment {
     }
 
     private void sendMail(@NonNull String text, @NonNull String email, @NonNull String subject) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
