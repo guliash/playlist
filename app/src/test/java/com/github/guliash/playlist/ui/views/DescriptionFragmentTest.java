@@ -39,7 +39,7 @@ public class DescriptionFragmentTest {
         Singer singer = Constants.getSinger(Constants.SINGER_FIRST_ID);
         activity.showDescFragment(singer.id);
         SingerDescFragment fragment = (SingerDescFragment)activity.getSupportFragmentManager()
-                .findFragmentByTag(MainActivity.SINGERS_DESC_TAG);
+                .findFragmentByTag(MainActivity.FRAGMENT_TAG);
         assertTrue("Name view contains correct text", TextUtils.equals(singer.name, fragment.name
                 .getText()));
         assertTrue("Tracks view contains correct text", TextUtils.equals(singer.tracks.toString(),

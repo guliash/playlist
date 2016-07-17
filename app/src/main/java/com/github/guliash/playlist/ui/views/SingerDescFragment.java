@@ -55,20 +55,12 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
     ProgressBar progress;
     @Bind(R.id.info)
     LinearLayout info;
-    @Bind(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout collapsingToolbar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
     private int mSingerId;
 
-    private Callbacks mCallbacks;
-
     public static final String SINGER_ID_EXTRA = "singer_id";
-
-    public interface Callbacks {
-        void onBackClicked();
-    }
 
     public static SingerDescFragment newInstance(int singerId) {
         Bundle bundle = new Bundle();
@@ -79,17 +71,6 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
         fr.setArguments(bundle);
 
         return fr;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = getActivity();
-        if(activity instanceof Callbacks) {
-            mCallbacks = (Callbacks)activity;
-        } else {
-            throw new RuntimeException("Activity must implement SingerDescFragment#Callbacks");
-        }
     }
 
     @Override
@@ -111,9 +92,6 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
         View view = inflater.inflate(R.layout.fragment_desc, container, false);
 
         ButterKnife.bind(this, view);
-
-        ((AppCompatActivity)getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         return view;
     }
@@ -137,15 +115,6 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
         outState.putInt(SINGER_ID_EXTRA, mSingerId);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            mCallbacks.onBackClicked();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick(R.id.fab)
     public void urlFabClicked() {
         mPresenter.urlButtonClicked();
@@ -153,18 +122,18 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
 
     @Override
     public void setSinger(Singer singer) {
-        collapsingToolbar.setTitle(singer.name);
         name.setText(singer.name);
         genres.setText(TextUtils.join(", ", singer.genres));
         tracks.setText(String.valueOf(singer.tracks));
         albums.setText(String.valueOf(singer.albums));
         desc.setText(singer.description);
+        fab.setVisibility(View.VISIBLE);
         Picasso.with(getContext()).load(singer.cover.small).error(R.drawable.guitar).into(image);
     }
 
     @Override
     public void onError(Throwable e) {
-        Snackbar snackbar = Snackbar.make(collapsingToolbar, e.getMessage(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(name, e.getMessage(), Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

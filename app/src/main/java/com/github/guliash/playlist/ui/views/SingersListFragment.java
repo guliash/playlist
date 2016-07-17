@@ -77,9 +77,9 @@ public class SingersListFragment extends BaseFragment implements MainView, Singe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
-
         setHasOptionsMenu(true);
+
+        DaggerSingersComponent.builder().appComponent(getAppComponent()).build().inject(this);
 
         if (savedInstanceState != null) {
             mQuery = savedInstanceState.getString(QUERY_EXTRA);
@@ -92,7 +92,6 @@ public class SingersListFragment extends BaseFragment implements MainView, Singe
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
         ButterKnife.bind(this, view);
-        ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
 
         mSingersList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this.getContext(), this);
@@ -104,6 +103,7 @@ public class SingersListFragment extends BaseFragment implements MainView, Singe
                 mPresenter.onSingersRefresh();
             }
         });
+        mSwipe.setColorSchemeColors(R.color.accent);
         return view;
     }
 
@@ -128,7 +128,6 @@ public class SingersListFragment extends BaseFragment implements MainView, Singe
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        Log.e("TAG", "ON CREATE OPTIONS MENU");
         inflater.inflate(R.menu.menu_main, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
