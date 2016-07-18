@@ -14,4 +14,8 @@
     <string name="about">О программе</string>
     <string name="feedback">Обратная связь</string>
     <string name="no_mail_app_error">Нету почтового клиента</string>
+    <string name="notification_content_title">Слушайте любимую музыку</string>
+    <string name="notification_content_text">Выберите приложение</string>
+    <string name="yandex_music">Яндекс.Музыка</string>
+    <string name="yandex_radio">Яндекс.Радио</string>
 </resources>

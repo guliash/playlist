@@ -17,6 +17,8 @@ import com.github.guliash.playlist.executors.JobExecutor;
 import com.github.guliash.playlist.executors.PostExecutor;
 import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
+import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.utils.DeviceStateResolverImpl;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -91,5 +93,11 @@ public class AppModule {
     @Singleton
     PostExecutor provideUIExecutor() {
         return new UIExecutor();
+    }
+
+    @Provides
+    @Singleton
+    DeviceStateResolver provideDeviceStateResolver(Context context) {
+        return new DeviceStateResolverImpl(context);
     }
 }

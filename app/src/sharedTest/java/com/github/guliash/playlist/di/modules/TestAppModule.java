@@ -9,6 +9,8 @@ import com.github.guliash.playlist.executors.PostExecutor;
 import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
 import com.github.guliash.playlist.storage.FakeStorage;
+import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.utils.FakeDeviceStateResolver;
 
 import javax.inject.Singleton;
 
@@ -49,5 +51,11 @@ public class TestAppModule {
     @Singleton
     PostExecutor provideUIExecutor() {
         return new UIExecutor();
+    }
+
+    @Provides
+    @Singleton
+    DeviceStateResolver provideDeviceStateResolver() {
+        return new FakeDeviceStateResolver();
     }
 }

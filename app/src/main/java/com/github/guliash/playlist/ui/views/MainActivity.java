@@ -1,13 +1,20 @@
 package com.github.guliash.playlist.ui.views;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.structures.Singer;
+import com.github.guliash.playlist.utils.DeviceStateResolver;
 
 public class MainActivity extends BaseActivity implements SingersListFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
 
@@ -21,6 +28,8 @@ public class MainActivity extends BaseActivity implements SingersListFragment.Ca
     private static final int FEEDBACK_FRAGMENT = 3;
 
     private int mCurrentFragment = 0;
+
+    private DeviceStateResolver mDeviceStateResolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,53 @@ public class MainActivity extends BaseActivity implements SingersListFragment.Ca
         }
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+        mDeviceStateResolver = getAppComponent().deviceStateResolver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mDeviceStateResolver.areHeadphonesPluggedIn()) {
+            showMusicNotification();
+        }
+    }
+
+    private void showMusicNotification() {
+        Intent yaMusicIntent = mDeviceStateResolver.getLaunchIntentIfPackageInstalled(
+                DeviceStateResolver.YANDEX_MUSIC_PACKAGE);
+        Intent yaRadioIntent = mDeviceStateResolver.getLaunchIntentIfPackageInstalled(
+                DeviceStateResolver.YANDEX_RADIO_PACKAGE);
+
+        if(yaMusicIntent == null && yaRadioIntent == null) {
+            return;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.notification)
+                .setContentTitle(getString(R.string.notification_content_title))
+                .setContentText(getString(R.string.notification_content_text));
+
+        if(yaMusicIntent != null) {
+            PendingIntent pi = PendingIntent.getActivity(this, 0, yaMusicIntent, 0);
+            NotificationCompat.Action action = new NotificationCompat.Action(0,
+                    getString(R.string.yandex_music), pi);
+            builder.addAction(action);
+        }
+        if(yaRadioIntent != null) {
+            PendingIntent pi = PendingIntent.getActivity(this, 0, yaRadioIntent, 0);
+            NotificationCompat.Action action = new NotificationCompat.Action(0,
+                    getString(R.string.yandex_radio), pi);
+            builder.addAction(action);
+        }
+
+        builder.setContentIntent(PendingIntent.getActivity(this, 0,
+                (yaMusicIntent != null ? yaMusicIntent : yaRadioIntent), 0));
+        builder.setAutoCancel(true);
+
+        final int notificationId = 1;
+        NotificationManager mgr = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        mgr.notify(notificationId, builder.build());
     }
 
     @Override

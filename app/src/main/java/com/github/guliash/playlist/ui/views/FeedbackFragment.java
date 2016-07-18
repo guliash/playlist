@@ -19,6 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 //TODO There is a problem if toast shown. Fab will be overlapped
+//TODO make presenter
 public class FeedbackFragment extends BaseFragment {
 
     @Bind(R.id.feedback)
@@ -51,8 +52,8 @@ public class FeedbackFragment extends BaseFragment {
     }
 
     private void sendMail(@NonNull String text, @NonNull String email, @NonNull String subject) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setType("text/plain");
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
