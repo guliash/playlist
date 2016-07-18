@@ -1,20 +1,13 @@
 package com.github.guliash.playlist.ui.views;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,7 +18,7 @@ import android.widget.TextView;
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.presenters.DescriptionPresenterImpl;
+import com.github.guliash.playlist.ui.presenters.DescriptionViewPresenterImpl;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -37,7 +30,7 @@ import butterknife.OnClick;
 public class SingerDescFragment extends BaseFragment implements DescriptionView {
 
     @Inject
-    DescriptionPresenterImpl mPresenter;
+    DescriptionViewPresenterImpl mPresenter;
 
     @Bind(R.id.image)
     ImageView image;

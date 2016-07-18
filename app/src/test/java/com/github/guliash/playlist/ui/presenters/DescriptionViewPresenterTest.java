@@ -15,9 +15,9 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by gulash on 17.04.16.
  */
-public class DescriptionPresenterTest {
+public class DescriptionViewPresenterTest {
 
-    private DescriptionPresenter descPresenter;
+    private DescriptionViewPresenter descPresenter;
 
     @Mock
     private DescriptionView mockDescView;
@@ -30,7 +30,7 @@ public class DescriptionPresenterTest {
 
         MockitoAnnotations.initMocks(this);
 
-        descPresenter = new DescriptionPresenterImpl(mockGetSingerInteractor);
+        descPresenter = new DescriptionViewPresenterImpl(mockGetSingerInteractor);
     }
 
     @Test

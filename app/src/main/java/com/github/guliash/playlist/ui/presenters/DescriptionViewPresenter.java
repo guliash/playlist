@@ -5,7 +5,7 @@ import com.github.guliash.playlist.ui.views.DescriptionView;
 /**
  * The presenter for {@link DescriptionView}
  */
-public interface DescriptionPresenter {
+public interface DescriptionViewPresenter {
 
     /**
      * Attaches the view to the presenter

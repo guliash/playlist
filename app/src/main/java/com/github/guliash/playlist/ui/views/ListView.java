@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * View for displaying singers
  */
-public interface MainView {
+public interface ListView {
 
     /**
      * Displays loading

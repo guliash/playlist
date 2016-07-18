@@ -12,4 +12,9 @@ public class FakeDeviceStateResolver implements DeviceStateResolver {
     public Intent getLaunchIntentIfPackageInstalled(String name) {
         return null;
     }
+
+    @Override
+    public boolean isPackageInstalled(String name) {
+        return false;
+    }
 }

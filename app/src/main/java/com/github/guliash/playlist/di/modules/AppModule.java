@@ -19,6 +19,8 @@ import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.executors.UIExecutor;
 import com.github.guliash.playlist.utils.DeviceStateResolver;
 import com.github.guliash.playlist.utils.DeviceStateResolverImpl;
+import com.github.guliash.playlist.utils.NotificationsHelper;
+import com.github.guliash.playlist.utils.NotificationsHelperImpl;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -99,5 +101,11 @@ public class AppModule {
     @Singleton
     DeviceStateResolver provideDeviceStateResolver(Context context) {
         return new DeviceStateResolverImpl(context);
+    }
+
+    @Provides
+    @Singleton
+    NotificationsHelper provideNotificationsHelper(Context context, DeviceStateResolver deviceStateResolver) {
+        return new NotificationsHelperImpl(context, deviceStateResolver);
     }
 }

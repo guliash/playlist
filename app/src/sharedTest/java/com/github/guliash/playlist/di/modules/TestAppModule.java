@@ -11,6 +11,10 @@ import com.github.guliash.playlist.executors.UIExecutor;
 import com.github.guliash.playlist.storage.FakeStorage;
 import com.github.guliash.playlist.utils.DeviceStateResolver;
 import com.github.guliash.playlist.utils.FakeDeviceStateResolver;
+import com.github.guliash.playlist.utils.FakeNotificationHelper;
+import com.github.guliash.playlist.utils.NotificationsHelper;
+
+import org.mockito.Mockito;
 
 import javax.inject.Singleton;
 
@@ -57,5 +61,11 @@ public class TestAppModule {
     @Singleton
     DeviceStateResolver provideDeviceStateResolver() {
         return new FakeDeviceStateResolver();
+    }
+
+    @Provides
+    @Singleton
+    NotificationsHelper provideNotificationsHelper() {
+        return new FakeNotificationHelper();
     }
 }

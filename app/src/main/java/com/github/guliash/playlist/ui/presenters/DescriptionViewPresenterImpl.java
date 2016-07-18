@@ -7,16 +7,16 @@ import com.github.guliash.playlist.ui.views.DescriptionView;
 import javax.inject.Inject;
 
 /**
- * An implementation of {@link DescriptionPresenter}
+ * An implementation of {@link DescriptionViewPresenter}
  */
-public class DescriptionPresenterImpl implements DescriptionPresenter{
+public class DescriptionViewPresenterImpl implements DescriptionViewPresenter {
 
     private DescriptionView mView;
     private GetSingerInteractor mGetSingerInteractor;
     private Singer mSinger; //TODO SHOULD IT BE HERE OR SHOULD I CREATE A SEPARATE PRESENTER FOR URL
 
     @Inject
-    public DescriptionPresenterImpl(GetSingerInteractor getSingerInteractor) {
+    public DescriptionViewPresenterImpl(GetSingerInteractor getSingerInteractor) {
         mGetSingerInteractor = getSingerInteractor;
     }
 

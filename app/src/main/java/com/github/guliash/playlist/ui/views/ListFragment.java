@@ -7,13 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +23,7 @@ import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
-import com.github.guliash.playlist.ui.presenters.MainPresenterImpl;
+import com.github.guliash.playlist.ui.presenters.ListViewPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +33,10 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SingersListFragment extends BaseFragment implements MainView, SingersAdapter.Callbacks {
+public class ListFragment extends BaseFragment implements ListView, SingersAdapter.Callbacks {
 
     @Inject
-    MainPresenterImpl mPresenter;
+    ListViewPresenterImpl mPresenter;
 
     @Bind(R.id.singers)
     RecyclerView mSingersList;
@@ -69,7 +66,7 @@ public class SingersListFragment extends BaseFragment implements MainView, Singe
         if(activity instanceof Callbacks) {
             mCallbacks = (Callbacks)activity;
         } else {
-            throw new RuntimeException("Activity must implement SingersListFragment#Callbacks");
+            throw new RuntimeException("Activity must implement ListFragment#Callbacks");
         }
     }
 

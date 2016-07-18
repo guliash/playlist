@@ -1,18 +1,18 @@
 package com.github.guliash.playlist.ui.presenters;
 
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.views.MainView;
+import com.github.guliash.playlist.ui.views.ListView;
 
 /**
- * Presenter for {@link MainView}
+ * Presenter for {@link ListView}
  */
-public interface MainPresenter {
+public interface ListViewPresenter {
 
     /**
      * Attaches view to the presenter
      * @param view the view to attach
      */
-    void onViewAttach(MainView view);
+    void onViewAttach(ListView view);
 
     /**
      * Detaches view from the presenter

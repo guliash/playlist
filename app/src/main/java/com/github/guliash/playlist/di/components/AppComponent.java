@@ -7,6 +7,7 @@ import com.github.guliash.playlist.di.modules.AppModule;
 import com.github.guliash.playlist.executors.PostExecutor;
 import com.github.guliash.playlist.executors.ThreadExecutor;
 import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.utils.NotificationsHelper;
 
 import javax.inject.Singleton;
 
@@ -25,5 +26,7 @@ public interface AppComponent {
     Storage storage();
 
     DeviceStateResolver deviceStateResolver();
+
+    NotificationsHelper notificationsHelper();
 
 }

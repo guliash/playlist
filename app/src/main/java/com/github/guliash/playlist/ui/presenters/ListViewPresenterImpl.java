@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.views.MainView;
+import com.github.guliash.playlist.ui.views.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +12,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * An implementation of {@link MainPresenter}
+ * An implementation of {@link ListViewPresenter}
  */
-public class MainPresenterImpl implements MainPresenter {
+public class ListViewPresenterImpl implements ListViewPresenter {
 
-    private MainView mView;
+    private ListView mView;
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
 
     @Inject
-    public MainPresenterImpl(GetSingersInteractor getSingersInteractor) {
+    public ListViewPresenterImpl(GetSingersInteractor getSingersInteractor) {
         mGetSingersInteractor = getSingersInteractor;
     }
 
     @Override
-    public void onViewAttach(MainView view) {
+    public void onViewAttach(ListView view) {
         mView = view;
         mView.showProgress();
         getSingers();

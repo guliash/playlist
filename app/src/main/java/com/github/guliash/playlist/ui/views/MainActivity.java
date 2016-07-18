@@ -1,22 +1,19 @@
 package com.github.guliash.playlist.ui.views;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.github.guliash.playlist.R;
+import com.github.guliash.playlist.di.components.DaggerActivityComponent;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.utils.NotificationsHelper;
 
-public class MainActivity extends BaseActivity implements SingersListFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
+import javax.inject.Inject;
+
+public class MainActivity extends BaseActivity implements ListFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
 
     static final String FRAGMENT_TAG = "fragment_tag";
 
@@ -29,7 +26,8 @@ public class MainActivity extends BaseActivity implements SingersListFragment.Ca
 
     private int mCurrentFragment = 0;
 
-    private DeviceStateResolver mDeviceStateResolver;
+    @Inject
+    NotificationsHelper notificationsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,52 +44,13 @@ public class MainActivity extends BaseActivity implements SingersListFragment.Ca
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
-        mDeviceStateResolver = getAppComponent().deviceStateResolver();
+        DaggerActivityComponent.builder().appComponent(getAppComponent()).build().inject(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mDeviceStateResolver.areHeadphonesPluggedIn()) {
-            showMusicNotification();
-        }
-    }
-
-    private void showMusicNotification() {
-        Intent yaMusicIntent = mDeviceStateResolver.getLaunchIntentIfPackageInstalled(
-                DeviceStateResolver.YANDEX_MUSIC_PACKAGE);
-        Intent yaRadioIntent = mDeviceStateResolver.getLaunchIntentIfPackageInstalled(
-                DeviceStateResolver.YANDEX_RADIO_PACKAGE);
-
-        if(yaMusicIntent == null && yaRadioIntent == null) {
-            return;
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notification)
-                .setContentTitle(getString(R.string.notification_content_title))
-                .setContentText(getString(R.string.notification_content_text));
-
-        if(yaMusicIntent != null) {
-            PendingIntent pi = PendingIntent.getActivity(this, 0, yaMusicIntent, 0);
-            NotificationCompat.Action action = new NotificationCompat.Action(0,
-                    getString(R.string.yandex_music), pi);
-            builder.addAction(action);
-        }
-        if(yaRadioIntent != null) {
-            PendingIntent pi = PendingIntent.getActivity(this, 0, yaRadioIntent, 0);
-            NotificationCompat.Action action = new NotificationCompat.Action(0,
-                    getString(R.string.yandex_radio), pi);
-            builder.addAction(action);
-        }
-
-        builder.setContentIntent(PendingIntent.getActivity(this, 0,
-                (yaMusicIntent != null ? yaMusicIntent : yaRadioIntent), 0));
-        builder.setAutoCancel(true);
-
-        final int notificationId = 1;
-        NotificationManager mgr = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        mgr.notify(notificationId, builder.build());
+        notificationsHelper.showMusicAppsNotification();
     }
 
     @Override
@@ -141,7 +100,7 @@ public class MainActivity extends BaseActivity implements SingersListFragment.Ca
         mCurrentFragment = LIST_FRAGMENT;
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.content_fragment, new SingersListFragment(), FRAGMENT_TAG).commit();
+        ft.add(R.id.content_fragment, new ListFragment(), FRAGMENT_TAG).commit();
         invalidateOptionsMenu();
     }
 
