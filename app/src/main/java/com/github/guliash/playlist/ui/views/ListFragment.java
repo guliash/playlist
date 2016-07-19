@@ -40,6 +40,8 @@ import butterknife.ButterKnife;
 
 public class ListFragment extends BaseFragment implements ListView, SingersAdapter.Callbacks, AppsAdapter.Callbacks {
 
+    private static final String QUERY_EXTRA = "query";
+
     @Inject
     ListViewPresenterImpl mPresenter;
 
@@ -61,8 +63,6 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     private SingersAdapter mSingersAdapter;
 
     private String mQuery;
-
-    private static final String QUERY_EXTRA = "query";
 
     private Callbacks mCallbacks;
 
@@ -144,7 +144,6 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
             }
         });
 
-
         return view;
     }
 
@@ -152,11 +151,6 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     public void onStart() {
         super.onStart();
         mPresenter.onViewAttach(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override

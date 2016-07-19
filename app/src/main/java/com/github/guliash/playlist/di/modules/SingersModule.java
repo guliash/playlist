@@ -1,6 +1,8 @@
 package com.github.guliash.playlist.di.modules;
 
 import com.github.guliash.playlist.di.PerFragment;
+import com.github.guliash.playlist.interactors.GetAppsInteractor;
+import com.github.guliash.playlist.interactors.GetAppsInteractorImpl;
 import com.github.guliash.playlist.interactors.GetSingerInteractor;
 import com.github.guliash.playlist.interactors.GetSingerInteractorImpl;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
@@ -24,4 +26,9 @@ public class SingersModule {
         return getSingersInteractor;
     }
 
+    @Provides
+    @PerFragment
+    GetAppsInteractor provideGetAppsInteractor(GetAppsInteractorImpl getAppsInteractor) {
+        return getAppsInteractor;
+    }
 }

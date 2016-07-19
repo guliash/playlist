@@ -2,6 +2,7 @@ package com.github.guliash.playlist.ui.presenters;
 
 import android.content.Context;
 
+import com.github.guliash.playlist.interactors.GetAppsInteractor;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.ListView;
@@ -28,6 +29,9 @@ public class ListViewPresenterTest {
     private GetSingersInteractor mockGetSingersInteractor;
 
     @Mock
+    private GetAppsInteractor mockGetAppsInteractor;
+
+    @Mock
     private ListView mockListView;
 
     @Mock
@@ -46,7 +50,8 @@ public class ListViewPresenterTest {
 
         MockitoAnnotations.initMocks(this);
 
-        listViewPresenter = new ListViewPresenterImpl(mockGetSingersInteractor, mockStateResolver, mockContext);
+        listViewPresenter = new ListViewPresenterImpl(mockGetSingersInteractor, mockGetAppsInteractor,
+                mockStateResolver, mockContext);
     }
 
     @Test

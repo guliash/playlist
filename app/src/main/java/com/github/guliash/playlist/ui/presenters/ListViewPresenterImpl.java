@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.text.TextUtils;
 
+import com.github.guliash.playlist.interactors.GetAppsInteractor;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.ListView;
@@ -22,13 +23,19 @@ import javax.inject.Inject;
  */
 public class ListViewPresenterImpl implements ListViewPresenter {
 
+    private static final List<String> APPS = new ArrayList<>(2);
+
+    static {
+        APPS.add("ru.yandex.radio");
+        APPS.add("ru.yandex.music");
+    }
+
     private ListView mView;
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
+    private GetAppsInteractor mGetAppsInteractor;
     private DeviceStateResolver mDeviceStateResolver;
     private Context mContext;
-
-    private static final String[] APPS = new String[] {"ru.yandex.radio", "ru.yandex.music"};
 
     private BroadcastReceiver mHeadphonesBroadcats = new BroadcastReceiver() {
         @Override
@@ -44,8 +51,10 @@ public class ListViewPresenterImpl implements ListViewPresenter {
 
     @Inject
     public ListViewPresenterImpl(GetSingersInteractor getSingersInteractor,
+                                 GetAppsInteractor getAppsInteractor,
                                  DeviceStateResolver deviceStateResolver, Context context) {
         mGetSingersInteractor = getSingersInteractor;
+        mGetAppsInteractor = getAppsInteractor;
         mDeviceStateResolver = deviceStateResolver;
         mContext = context;
     }
@@ -69,7 +78,7 @@ public class ListViewPresenterImpl implements ListViewPresenter {
 
     }
 
-    GetSingersInteractor.Callbacks mCallbacks = new GetSingersInteractor.Callbacks() {
+    private GetSingersInteractor.Callbacks mGetSingersCallbacks = new GetSingersInteractor.Callbacks() {
         @Override
         public void onSingers(List<Singer> singers) {
             if(mView != null) {
@@ -113,21 +122,21 @@ public class ListViewPresenterImpl implements ListViewPresenter {
     }
 
     private void getSingers() {
-        mGetSingersInteractor.execute(mCallbacks);
+        mGetSingersInteractor.execute(mGetSingersCallbacks);
     }
 
-    private void getApps() {
-        List<ApplicationInfo> apps = new ArrayList<>();
-        for(String app : APPS) {
-            ApplicationInfo info = mDeviceStateResolver.getApplicationInfo(app);
-            if(info != null) {
-                apps.add(info);
+    private GetAppsInteractor.Callbacks mGetAppsCallbacks = new GetAppsInteractor.Callbacks() {
+        @Override
+        public void onApps(List<ApplicationInfo> apps) {
+            if(mView != null && apps.size() != 0) {
+                mView.setApps(apps);
+                mView.previewApps();
             }
         }
-        if(apps.size() != 0) {
-            mView.setApps(apps);
-            mView.previewApps();
-        }
+    };
+
+    private void getApps() {
+        mGetAppsInteractor.execute(mGetAppsCallbacks, APPS);
     }
 
     private List<Singer> applyFilter(List<Singer> singers) {

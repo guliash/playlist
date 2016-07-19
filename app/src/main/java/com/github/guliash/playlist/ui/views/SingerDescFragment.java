@@ -29,6 +29,8 @@ import butterknife.OnClick;
 
 public class SingerDescFragment extends BaseFragment implements DescriptionView {
 
+    public static final String SINGER_ID_EXTRA = "singer_id";
+
     @Inject
     DescriptionViewPresenterImpl mPresenter;
 
@@ -52,8 +54,6 @@ public class SingerDescFragment extends BaseFragment implements DescriptionView 
     FloatingActionButton fab;
 
     private int mSingerId;
-
-    public static final String SINGER_ID_EXTRA = "singer_id";
 
     public static SingerDescFragment newInstance(int singerId) {
         Bundle bundle = new Bundle();

@@ -22,14 +22,14 @@ import butterknife.ButterKnife;
 //TODO make presenter
 public class FeedbackFragment extends BaseFragment {
 
+    private static final String EXAMPLE_MAIL = "guliash@example.com";
+    private static final String SUBJECT = "Playlist feedback";
+
     @Bind(R.id.feedback)
     EditText mFeedbackEdit;
 
     @Bind(R.id.fab)
     FloatingActionButton mSendFab;
-
-    private static final String EXAMPLE_MAIL = "guliash@example.com";
-    private static final String SUBJECT = "Playlist feedback";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
