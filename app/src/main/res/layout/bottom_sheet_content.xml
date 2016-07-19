@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bottom_sheet_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/apps_container"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/bottom_sheet_color"
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    app:behavior_hideable="true"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:behavior_peekHeight="@dimen/bottom_sheet_collapsed_height">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_collapsed_height"
