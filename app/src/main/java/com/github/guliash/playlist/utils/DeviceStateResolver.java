@@ -1,6 +1,7 @@
 package com.github.guliash.playlist.utils;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.support.annotation.Nullable;
 
 /**
@@ -16,16 +17,23 @@ public interface DeviceStateResolver {
 
     /**
      * Returns launch intent for package
-     * @param name package name
+     * @param packageName package name
      * @return intent for launch if package installed, {@code null} otherwise
      */
-    Intent getLaunchIntentIfPackageInstalled(String name);
+    Intent getLaunchIntentIfPackageInstalled(String packageName);
 
     /**
      * Checks whether package installed
-     * @param name package name
+     * @param packageName package name
      * @return {@code true} if installed
      */
-    boolean isPackageInstalled(String name);
+    boolean isPackageInstalled(String packageName);
+
+    /**
+     * Returns {@link ApplicationInfo} for the given package.
+     * @param packageName package name
+     * @return app info if package installed, {@code null} otherwise
+     */
+    ApplicationInfo getApplicationInfo(String packageName);
 
 }

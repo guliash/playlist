@@ -1,5 +1,7 @@
 package com.github.guliash.playlist.ui.presenters;
 
+import android.content.pm.ApplicationInfo;
+
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.ListView;
 
@@ -35,4 +37,11 @@ public interface ListViewPresenter {
      * Handles refreshing of singer's list
      */
     void onSingersRefresh();
+
+    /**
+     * Handles selecting of an app
+     * @param app chosen app
+     */
+    void onAppSelected(ApplicationInfo app);
+
 }

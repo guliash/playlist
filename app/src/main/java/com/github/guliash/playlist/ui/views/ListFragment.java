@@ -2,8 +2,11 @@ package com.github.guliash.playlist.ui.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +26,7 @@ import android.widget.ProgressBar;
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
+import com.github.guliash.playlist.ui.adapters.AppsAdapter;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
 import com.github.guliash.playlist.ui.presenters.ListViewPresenterImpl;
 
@@ -33,7 +38,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ListFragment extends BaseFragment implements ListView, SingersAdapter.Callbacks {
+public class ListFragment extends BaseFragment implements ListView, SingersAdapter.Callbacks, AppsAdapter.Callbacks {
 
     @Inject
     ListViewPresenterImpl mPresenter;
@@ -47,6 +52,12 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     @Bind(R.id.progressBar)
     ProgressBar mProgress;
 
+    @Bind(R.id.apps)
+    RecyclerView mAppsList;
+
+    @Bind(R.id.apps_container)
+    View mAppsContainer;
+
     private SingersAdapter mSingersAdapter;
 
     private String mQuery;
@@ -54,6 +65,10 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     private static final String QUERY_EXTRA = "query";
 
     private Callbacks mCallbacks;
+
+    private BottomSheetBehavior mBottomSheetBehavior;
+
+    private AppsAdapter mAppsAdapter;
 
     public interface Callbacks {
         void onSingerChosen(Singer singer);
@@ -90,8 +105,8 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
 
         ButterKnife.bind(this, view);
 
-        mSingersList.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), this.getContext(), this);
+        mSingersList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mSingersAdapter = new SingersAdapter(new ArrayList<Singer>(0), getContext(), this);
         mSingersList.setAdapter(mSingersAdapter);
 
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -101,6 +116,35 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
             }
         });
         mSwipe.setColorSchemeColors(R.color.accent);
+
+        mAppsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAppsAdapter = new AppsAdapter(null, this, getContext());
+        mAppsList.setAdapter(mAppsAdapter);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(mAppsContainer);
+
+        //TODO OMG FIX IT LATER
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if(newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    mSingersList.requestLayout();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        mAppsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandAppsPanel();
+            }
+        });
+
+
         return view;
     }
 
@@ -108,6 +152,11 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     public void onStart() {
         super.onStart();
         mPresenter.onViewAttach(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -158,6 +207,11 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     }
 
     @Override
+    public void onAppClicked(ApplicationInfo app) {
+        mPresenter.onAppSelected(app);
+    }
+
+    @Override
     public void showProgress() {
         mSingersList.setVisibility(View.INVISIBLE);
         mProgress.setVisibility(View.VISIBLE);
@@ -185,4 +239,38 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
     public void navigateToDescription(Singer singer) {
         mCallbacks.onSingerChosen(singer);
     }
+
+    @Override
+    public void previewApps() {
+        collapseAppsPanel();
+    }
+
+    @Override
+    public void showApps() {
+        expandAppsPanel();
+    }
+
+    @Override
+    public void hideApps() {
+        hideAppsPanel();
+    }
+
+    @Override
+    public void setApps(List<ApplicationInfo> apps) {
+        mAppsAdapter.setApps(apps);
+    }
+
+    private void expandAppsPanel() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    private void collapseAppsPanel() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    private void hideAppsPanel() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+
+
 }

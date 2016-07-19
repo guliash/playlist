@@ -9,9 +9,6 @@ import android.view.MenuItem;
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.di.components.DaggerActivityComponent;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.utils.NotificationsHelper;
-
-import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements ListFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
 
@@ -25,9 +22,6 @@ public class MainActivity extends BaseActivity implements ListFragment.Callbacks
     private static final int FEEDBACK_FRAGMENT = 3;
 
     private int mCurrentFragment = 0;
-
-    @Inject
-    NotificationsHelper notificationsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +44,6 @@ public class MainActivity extends BaseActivity implements ListFragment.Callbacks
     @Override
     protected void onResume() {
         super.onResume();
-        notificationsHelper.showMusicAppsNotification();
     }
 
     @Override

@@ -1,8 +1,12 @@
 package com.github.guliash.playlist.ui.presenters;
 
+import android.content.Context;
+
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.views.ListView;
+import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.utils.FakeDeviceStateResolver;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +31,12 @@ public class ListViewPresenterTest {
     private ListView mockListView;
 
     @Mock
+    private FakeDeviceStateResolver mockStateResolver;
+
+    @Mock
+    private Context mockContext;
+
+    @Mock
     Singer mockSinger;
 
     private static final String FILTER = "tove";
@@ -36,7 +46,7 @@ public class ListViewPresenterTest {
 
         MockitoAnnotations.initMocks(this);
 
-        listViewPresenter = new ListViewPresenterImpl(mockGetSingersInteractor);
+        listViewPresenter = new ListViewPresenterImpl(mockGetSingersInteractor, mockStateResolver, mockContext);
     }
 
     @Test

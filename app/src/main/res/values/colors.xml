@@ -8,4 +8,5 @@
     <color name="text_primary">#ffffff</color>
     <color name="text_secondary">#b2ffffff</color>
     <color name="text_tertiary">#7Fffffff</color>
+    <color name="bottom_sheet_color">#616161</color>
 </resources>
