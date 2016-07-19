@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * View for displaying singers
  */
-public interface ListView {
+public interface SingersView {
 
     /**
      * Displays loading

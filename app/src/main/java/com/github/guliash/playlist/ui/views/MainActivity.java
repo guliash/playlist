@@ -10,7 +10,7 @@ import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.di.components.DaggerActivityComponent;
 import com.github.guliash.playlist.structures.Singer;
 
-public class MainActivity extends BaseActivity implements ListFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends BaseActivity implements SingersFragment.Callbacks, FragmentManager.OnBackStackChangedListener {
 
     static final String FRAGMENT_TAG = "fragment_tag";
 
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements ListFragment.Callbacks
         mCurrentFragment = LIST_FRAGMENT;
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.content_fragment, new ListFragment(), FRAGMENT_TAG).commit();
+        ft.add(R.id.content_fragment, new SingersFragment(), FRAGMENT_TAG).commit();
         invalidateOptionsMenu();
     }
 

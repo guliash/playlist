@@ -5,8 +5,7 @@ import android.content.Context;
 import com.github.guliash.playlist.interactors.GetAppsInteractor;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.views.ListView;
-import com.github.guliash.playlist.utils.DeviceStateResolver;
+import com.github.guliash.playlist.ui.views.SingersView;
 import com.github.guliash.playlist.utils.FakeDeviceStateResolver;
 
 import org.junit.Before;
@@ -21,9 +20,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 /**
  * Created by gulash on 19.04.16.
  */
-public class ListViewPresenterTest {
+public class SingersViewPresenterTest {
 
-    private ListViewPresenter listViewPresenter;
+    private SingersViewPresenter singersViewPresenter;
 
     @Mock
     private GetSingersInteractor mockGetSingersInteractor;
@@ -32,7 +31,7 @@ public class ListViewPresenterTest {
     private GetAppsInteractor mockGetAppsInteractor;
 
     @Mock
-    private ListView mockListView;
+    private SingersView mockSingersView;
 
     @Mock
     private FakeDeviceStateResolver mockStateResolver;
@@ -50,26 +49,26 @@ public class ListViewPresenterTest {
 
         MockitoAnnotations.initMocks(this);
 
-        listViewPresenter = new ListViewPresenterImpl(mockGetSingersInteractor, mockGetAppsInteractor,
+        singersViewPresenter = new SingersViewPresenterImpl(mockGetSingersInteractor, mockGetAppsInteractor,
                 mockStateResolver, mockContext);
     }
 
     @Test
     public void viewAttach() {
 
-        listViewPresenter.onViewAttach(mockListView);
+        singersViewPresenter.onViewAttach(mockSingersView);
 
-        verify(mockListView).showProgress();
+        verify(mockSingersView).showProgress();
         verify(mockGetSingersInteractor).execute(any(GetSingersInteractor.Callbacks.class));
 
-        verifyNoMoreInteractions(mockListView);
+        verifyNoMoreInteractions(mockSingersView);
         verifyNoMoreInteractions(mockGetSingersInteractor);
     }
 
     @Test
     public void singersSearch() {
 
-        listViewPresenter.onSingersSearch(FILTER);
+        singersViewPresenter.onSingersSearch(FILTER);
 
         verify(mockGetSingersInteractor).execute(any(GetSingersInteractor.Callbacks.class));
         verifyNoMoreInteractions(mockGetSingersInteractor);
@@ -79,7 +78,7 @@ public class ListViewPresenterTest {
     @Test
     public void singersRefresh() {
 
-        listViewPresenter.onSingersRefresh();
+        singersViewPresenter.onSingersRefresh();
 
         verify(mockGetSingersInteractor).execute(any(GetSingersInteractor.Callbacks.class));
         verifyNoMoreInteractions(mockGetSingersInteractor);
@@ -89,11 +88,11 @@ public class ListViewPresenterTest {
     @Test
     public void singerClicked() {
 
-        listViewPresenter.onViewAttach(mockListView);
+        singersViewPresenter.onViewAttach(mockSingersView);
 
-        listViewPresenter.onSingerSelected(mockSinger);
+        singersViewPresenter.onSingerSelected(mockSinger);
 
-        verify(mockListView).navigateToDescription(any(Singer.class));
+        verify(mockSingersView).navigateToDescription(any(Singer.class));
     }
 
 }

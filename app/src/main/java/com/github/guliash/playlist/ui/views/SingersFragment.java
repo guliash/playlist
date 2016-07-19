@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +27,7 @@ import com.github.guliash.playlist.di.components.DaggerSingersComponent;
 import com.github.guliash.playlist.structures.Singer;
 import com.github.guliash.playlist.ui.adapters.AppsAdapter;
 import com.github.guliash.playlist.ui.adapters.SingersAdapter;
-import com.github.guliash.playlist.ui.presenters.ListViewPresenterImpl;
+import com.github.guliash.playlist.ui.presenters.SingersViewPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +37,12 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ListFragment extends BaseFragment implements ListView, SingersAdapter.Callbacks, AppsAdapter.Callbacks {
+public class SingersFragment extends BaseFragment implements SingersView, SingersAdapter.Callbacks, AppsAdapter.Callbacks {
 
     private static final String QUERY_EXTRA = "query";
 
     @Inject
-    ListViewPresenterImpl mPresenter;
+    SingersViewPresenterImpl mPresenter;
 
     @Bind(R.id.singers)
     RecyclerView mSingersList;
@@ -81,7 +80,7 @@ public class ListFragment extends BaseFragment implements ListView, SingersAdapt
         if(activity instanceof Callbacks) {
             mCallbacks = (Callbacks)activity;
         } else {
-            throw new RuntimeException("Activity must implement ListFragment#Callbacks");
+            throw new RuntimeException("Activity must implement SingersFragment#Callbacks");
         }
     }
 

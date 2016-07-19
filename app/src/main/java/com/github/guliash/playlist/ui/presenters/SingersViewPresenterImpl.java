@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import com.github.guliash.playlist.interactors.GetAppsInteractor;
 import com.github.guliash.playlist.interactors.GetSingersInteractor;
 import com.github.guliash.playlist.structures.Singer;
-import com.github.guliash.playlist.ui.views.ListView;
+import com.github.guliash.playlist.ui.views.SingersView;
 import com.github.guliash.playlist.utils.DeviceStateResolver;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * An implementation of {@link ListViewPresenter}
+ * An implementation of {@link SingersViewPresenter}
  */
-public class ListViewPresenterImpl implements ListViewPresenter {
+public class SingersViewPresenterImpl implements SingersViewPresenter {
 
     private static final List<String> APPS = new ArrayList<>(2);
 
@@ -30,7 +30,7 @@ public class ListViewPresenterImpl implements ListViewPresenter {
         APPS.add("ru.yandex.music");
     }
 
-    private ListView mView;
+    private SingersView mView;
     private String mFilter;
     private GetSingersInteractor mGetSingersInteractor;
     private GetAppsInteractor mGetAppsInteractor;
@@ -50,9 +50,9 @@ public class ListViewPresenterImpl implements ListViewPresenter {
     };
 
     @Inject
-    public ListViewPresenterImpl(GetSingersInteractor getSingersInteractor,
-                                 GetAppsInteractor getAppsInteractor,
-                                 DeviceStateResolver deviceStateResolver, Context context) {
+    public SingersViewPresenterImpl(GetSingersInteractor getSingersInteractor,
+                                    GetAppsInteractor getAppsInteractor,
+                                    DeviceStateResolver deviceStateResolver, Context context) {
         mGetSingersInteractor = getSingersInteractor;
         mGetAppsInteractor = getAppsInteractor;
         mDeviceStateResolver = deviceStateResolver;
@@ -60,7 +60,7 @@ public class ListViewPresenterImpl implements ListViewPresenter {
     }
 
     @Override
-    public void onViewAttach(ListView view) {
+    public void onViewAttach(SingersView view) {
         mView = view;
         mView.showProgress();
         mContext.registerReceiver(mHeadphonesBroadcats, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
