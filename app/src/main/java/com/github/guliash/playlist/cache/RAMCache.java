@@ -21,7 +21,7 @@ public class RAMCache implements Cache {
      */
     private List<Singer> mSingers;
 
-    private static final int EXPIRATION_INTERVAL = 2 * 5 * 1000;
+    private static final int EXPIRATION_INTERVAL = 60 * 1000;
 
     @Override
     public boolean isCached() {
