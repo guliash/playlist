@@ -79,7 +79,6 @@ public class MainActivity extends BaseActivity implements SingersFragment.Callba
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new AboutFragment(), FRAGMENT_TAG).addToBackStack(null).commit();
-        invalidateOptionsMenu();
     }
 
     void showFeedbackFragment() {
@@ -87,7 +86,6 @@ public class MainActivity extends BaseActivity implements SingersFragment.Callba
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new FeedbackFragment(), FRAGMENT_TAG).addToBackStack(null).commit();
-        invalidateOptionsMenu();
     }
 
     void showListFragment() {
@@ -95,7 +93,6 @@ public class MainActivity extends BaseActivity implements SingersFragment.Callba
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_fragment, new SingersFragment(), FRAGMENT_TAG).commit();
-        invalidateOptionsMenu();
     }
 
     void showDescFragment(int singerId) {
@@ -104,7 +101,6 @@ public class MainActivity extends BaseActivity implements SingersFragment.Callba
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, SingerDescFragment.newInstance(singerId), FRAGMENT_TAG)
                 .addToBackStack(null).commit();
-        invalidateOptionsMenu();
     }
 
     private boolean hasBackStackEntries() {
