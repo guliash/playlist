@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements ListFragment.Callbacks
     @Override
     protected void onResume() {
         super.onResume();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackStackEntries());
     }
 
     @Override
@@ -106,9 +107,12 @@ public class MainActivity extends BaseActivity implements ListFragment.Callbacks
         invalidateOptionsMenu();
     }
 
+    private boolean hasBackStackEntries() {
+        return getSupportFragmentManager().getBackStackEntryCount() > 0;
+    }
+
     @Override
     public void onBackStackChanged() {
-        boolean hasEntries = getSupportFragmentManager().getBackStackEntryCount() > 0;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(hasEntries);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackStackEntries());
     }
 }
