@@ -68,6 +68,8 @@ public class SingersViewPresenterImpl implements SingersViewPresenter {
         getSingers();
         if(mDeviceStateResolver.areHeadphonesPluggedIn()) {
             getApps();
+        } else {
+            mView.hideApps();
         }
     }
 

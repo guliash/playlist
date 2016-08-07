@@ -82,7 +82,6 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
             apps = new ArrayList<>(apps);
         }
         this.mApps = apps;
-        Log.e("TAG", "SET APPS " + apps);
         notifyDataSetChanged();
     }
 }
