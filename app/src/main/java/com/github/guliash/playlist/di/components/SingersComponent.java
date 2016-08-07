@@ -1,18 +1,18 @@
 package com.github.guliash.playlist.di.components;
 
-import com.github.guliash.playlist.di.PerActivity;
+import com.github.guliash.playlist.di.PerFragment;
 import com.github.guliash.playlist.di.modules.SingersModule;
-import com.github.guliash.playlist.ui.views.DescriptionActivity;
-import com.github.guliash.playlist.ui.views.MainActivity;
+import com.github.guliash.playlist.ui.views.SingersFragment;
+import com.github.guliash.playlist.ui.views.SingerDescFragment;
 
 import dagger.Component;
 
-@PerActivity
+@PerFragment
 @Component(dependencies = AppComponent.class, modules = SingersModule.class)
 public interface SingersComponent {
 
-    void inject(MainActivity activity);
+    void inject(SingersFragment fragment);
 
-    void inject(DescriptionActivity activity);
+    void inject(SingerDescFragment fragment);
 
 }

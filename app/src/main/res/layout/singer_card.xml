@@ -29,19 +29,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextMediumPrimary"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:id="@+id/name" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextSmallSecondary"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:id="@+id/genres" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
                 android:ellipsize="end"
-                style="@style/TextSmallSecondary"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:id="@+id/desc" />
         </LinearLayout>
     </LinearLayout>

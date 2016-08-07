@@ -1,6 +1,8 @@
 package com.github.guliash.playlist.ui.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,16 +14,18 @@ import android.widget.TextView;
 
 import com.github.guliash.playlist.R;
 import com.github.guliash.playlist.structures.Singer;
+import com.github.guliash.playlist.utils.Checker;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An adapter of singers
+ * Adapter of singers
  */
 public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerViewHolder> {
 
-    public static class SingerViewHolder extends RecyclerView.ViewHolder {
+    static class SingerViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mName;
         private TextView mGenres;
@@ -43,11 +47,15 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
         void onSingerClicked(Singer singer);
     }
 
-    private Context mContext;
-    private List<Singer> mSingers;
-    private Callbacks mListener;
+    @NonNull private Context mContext;
+    @NonNull private Callbacks mListener;
+    @Nullable private List<Singer> mSingers;
 
-    public SingersAdapter(List<Singer> singerList, Context context, Callbacks listener) {
+
+    public SingersAdapter(@Nullable List<Singer> singerList, @NonNull Context context, @NonNull Callbacks listener) {
+        Checker.notNull(context);
+        Checker.notNull(listener);
+
         mSingers = singerList;
         mContext = context;
         mListener = listener;
@@ -84,15 +92,21 @@ public class SingersAdapter extends RecyclerView.Adapter<SingersAdapter.SingerVi
 
     @Override
     public int getItemCount() {
-        return mSingers.size();
+        return mSingers == null ? 0 : mSingers.size();
     }
 
-    public void setSingers(List<Singer> singers) {
-        mSingers.clear();
-        mSingers.addAll(singers);
+    public void setSingers(@Nullable List<Singer> singers) {
+        if(singers == null) {
+            mSingers = null;
+        } else {
+            if(mSingers == null) {
+                mSingers = new ArrayList<>(singers.size());
+                mSingers.addAll(singers);
+            } else {
+                mSingers.clear();
+                mSingers.addAll(singers);
+            }
+        }
         notifyDataSetChanged();
     }
-
-
-
 }

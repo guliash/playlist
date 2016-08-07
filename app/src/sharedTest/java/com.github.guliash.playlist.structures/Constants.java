@@ -66,6 +66,6 @@ public class Constants {
                 return singer;
             }
         }
-        return null;
+        throw new AssertionError();
     }
 }

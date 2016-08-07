@@ -7,8 +7,6 @@ import com.github.guliash.playlist.structures.Singer;
  */
 public interface DescriptionView {
 
-    String SINGER_ID_EXTRA = "singer_id";
-
     /**
      * Displays info about the singer
      * @param singer a singer
